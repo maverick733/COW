@@ -106,7 +106,7 @@ body {
     height: 100vh;
     min-height: 700px;
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), 
-                url('/home/uni/Documents/Webpage-Coworking/image/Hauptbild.jpg') no-repeat center center/cover;
+                url('./image/Hauptbild.webp') no-repeat center center/cover;
     display: flex;
     align-items: center;
     color: white;
