@@ -176,3 +176,33 @@ function sendBookingEmail(data) {
     });
     */
 }
+
+// Hintergrundbilder initialisieren
+document.querySelectorAll('[data-bg-image]').forEach(section => {
+    section.style.backgroundImage = section.getAttribute('data-bg-image');
+    section.classList.add('section-with-bg');
+});
+
+// Fetch and update prices from Excel
+async function fetchAndUpdatePrices() {
+    try {
+        const response = await fetch('/api/prices');
+        const prices = await response.json();
+        
+        // Update prices in the DOM
+        prices.forEach(item => {
+            const elements = document.querySelectorAll(`[data-package-id="${item.id}"] .pricing-price`);
+            elements.forEach(el => {
+                el.innerHTML = `€${item.price}<span>/${item.period}</span>`;
+            });
+        });
+    } catch (error) {
+        console.error('Error fetching prices:', error);
+    }
+}
+
+// Initial fetch
+fetchAndUpdatePrices();
+
+// Optional: Update prices periodically
+setInterval(fetchAndUpdatePrices, 60000); // Update every minute
