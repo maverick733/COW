@@ -12,7 +12,7 @@
     <header class="main-header">
         <div class="header-container" data-bg-image="linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url('pfad/zum/bild2.jpg')">
             <a href="#" class="logo">
-                <img src="./image/logo1.jpg" alt="BM-Coworking">
+                <img src="./image/logo1.png" alt="BM-Coworking">
                 Coworking
             </a>
             
@@ -512,6 +512,68 @@
     </div>
 </div>
 
+<!-- Mobile-optimierte Buchungsmodal -->
+<div class="booking-modal" id="bookingModal">
+    <div class="modal-content">
+        <button class="modal-close-btn" id="modalCloseBtn">&times;</button>
+        <div class="modal-mobile-header">
+            <h2 class="modal-title">Buchung abschließen</h2>
+            <div class="mobile-package-info" id="mobilePackageName"></div>
+        </div>
+        
+        <form id="bookingForm">
+            <input type="hidden" id="packageName" name="packageName">
+            
+            <div class="form-group">
+                <label for="bookingName">Vollständiger Name</label>
+                <input type="text" id="bookingName" name="bookingName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="bookingEmail">Email</label>
+                <input type="email" id="bookingEmail" name="bookingEmail" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="bookingPhone">Telefon</label>
+                <input type="tel" id="bookingPhone" name="bookingPhone">
+            </div>
+            
+            <div class="date-selection">
+                <div class="form-group">
+                    <label for="bookingCheckin">Check-in</label>
+                    <input type="date" id="bookingCheckin" name="bookingCheckin" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookingCheckout">Check-out</label>
+                    <input type="date" id="bookingCheckout" name="bookingCheckout" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="bookingGuests">Anzahl Personen</label>
+                <select id="bookingGuests" name="bookingGuests" required>
+                    <option value="1">1 Person</option>
+                    <option value="2">2 Personen</option>
+                    <option value="3">3 Personen</option>
+                    <option value="4">4 Personen</option>
+                    <option value="5">5+ Personen</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="bookingNotes">Besondere Anforderungen</label>
+                <textarea id="bookingNotes" name="bookingNotes" rows="3"></textarea>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-block">Jetzt buchen</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
 
 <!-- Confirmation Modal - Landscape -->
 <div class="confirmation-modal landscape-modal" id="confirmationModal">
@@ -566,7 +628,50 @@
     </div>
 </div>
 
-
+<!-- Mobile-optimierte Bestätigungsmodal -->
+<div class="confirmation-modal" id="confirmationModal">
+    <div class="modal-content">
+        <button class="modal-close-btn" id="confirmationCloseBtn">&times;</button>
+        <div class="confirmation-header">
+            <div class="confirmation-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 class="modal-title">Buchung bestätigt!</h2>
+        </div>
+        
+        <div class="confirmation-details">
+            <div class="detail-item">
+                <span class="detail-label">Paket:</span>
+                <span class="detail-value" id="confirmedPackage"></span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Buchungsnummer:</span>
+                <span class="detail-value" id="reservationNumber"></span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Check-in:</span>
+                <span class="detail-value" id="confirmedCheckin"></span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Check-out:</span>
+                <span class="detail-value" id="confirmedCheckout"></span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Nächte:</span>
+                <span class="detail-value" id="confirmedNights"></span>
+            </div>
+        </div>
+        
+        <div class="confirmation-note">
+            <p>Eine Bestätigung wurde an Ihre E-Mail gesendet.</p>
+            <p>Wir freuen uns auf Ihren Besuch!</p>
+        </div>
+        
+        <div class="confirmation-actions">
+            <button class="btn btn-block" id="confirmationOkBtn">Alles klar</button>
+        </div>
+    </div>
+</div>
 
 
     <!-- Testimonials -->
