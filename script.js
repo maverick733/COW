@@ -119,8 +119,27 @@ confirmationOkBtn.addEventListener('click', closeModals);
 bookingForm.addEventListener('submit', function(e) {
     e.preventDefault();
     
+    // Validate dates
+    const checkin = new Date(this.bookingCheckin.value);
+    const checkout = new Date(this.bookingCheckout.value);
+    
+    if (checkin >= checkout) {
+        alert('Check-out Datum muss nach dem Check-in Datum liegen.');
+        return;
+    }
+    
+    // Calculate number of nights
+    const timeDiff = checkout - checkin;
+    const nights = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+    
     // Generate reservation number
     const reservationNumber = 'BM-' + Math.floor(100000 + Math.random() * 900000);
+    
+    // Format dates for display
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('de-DE', options);
+    };
     
     // Get form data
     const formData = {
@@ -128,25 +147,54 @@ bookingForm.addEventListener('submit', function(e) {
         name: this.bookingName.value,
         email: this.bookingEmail.value,
         phone: this.bookingPhone.value,
-        date: this.bookingDate.value,
+        checkin: formatDate(this.bookingCheckin.value),
+        checkout: formatDate(this.bookingCheckout.value),
+        nights: nights,
+        guests: this.bookingGuests.value,
         notes: this.bookingNotes.value,
         reservationNumber: reservationNumber
     };
     
-    // Send email (simulated)
+    // Update confirmation modal
+    document.getElementById('confirmedPackage').textContent = formData.package;
+    document.getElementById('reservationNumber').textContent = formData.reservationNumber;
+    document.getElementById('confirmedCheckin').textContent = formData.checkin;
+    document.getElementById('confirmedCheckout').textContent = formData.checkout;
+    document.getElementById('confirmedNights').textContent = formData.nights;
+    document.getElementById('confirmedGuests').textContent = formData.guests;
+    
+    // Send confirmation email (simulated)
     sendBookingEmail(formData);
     
-    // Show confirmation
-    confirmedPackageSpan.textContent = formData.package;
-    reservationNumberSpan.textContent = formData.reservationNumber;
-    
-    // Show confirmation modal
+    // Hide booking modal and show confirmation
     bookingModal.classList.remove('active');
     confirmationModal.classList.add('active');
     
     // Reset form
     this.reset();
 });
+
+// Function to send booking email
+function sendBookingEmail(data) {
+    const emailContent = `
+        Neue Buchung bei BM-Coworking:
+        
+        Paket: ${data.package}
+        Name: ${data.name}
+        Email: ${data.email}
+        Telefon: ${data.phone}
+        Check-in: ${data.checkin}
+        Check-out: ${data.checkout}
+        Nächte: ${data.nights}
+        Personen: ${data.guests}
+        Besondere Anforderungen: ${data.notes || 'Keine'}
+        Reservierungsnummer: ${data.reservationNumber}
+    `;
+    
+    console.log('Email würde gesendet werden mit:', emailContent);
+    // In der Praxis würden Sie hier EmailJS oder eine Backend-API aufrufen
+}
+
 
 // Function to send booking email (simulated with EmailJS or could be replaced with actual API call)
 function sendBookingEmail(data) {
