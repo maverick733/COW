@@ -8,22 +8,21 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
-    <!-- Hero Section mit Navigation -->
-
-    <section class="hero-section" id="home">
-        <nav class="hero-nav">
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-container">
             <a href="#" class="logo">
                 <img src="./image/logo1.png" alt="BM-Coworking">
-                twa.
+                twa. CoWo
             </a>
             
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
             </button>
             
-            <div class="main-nav" id="mainNav">
+            <nav class="main-nav" id="mainNav">
                 <ul>
+                    <li><a href="#home">Startseite</a></li>
                     <li><a href="#coworking">Coworking</a></li>
                     <li><a href="#kultur">Kultur</a></li>
                     <li><a href="#aktivitaeten">Aktivitäten</a></li>
@@ -31,9 +30,12 @@
                     <li><a href="#pakete">Pakete</a></li>
                     <li><a href="#kontakt">Kontakt</a></li>
                 </ul>
-            </div>
-        </nav>
+            </nav>
+        </div>
+    </header>
 
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
         <div class="hero-content">
             <h1 class="hero-title">Arbeiten & Kultur erleben in Karaman</h1>
             <p class="hero-subtitle">Entdecken Sie unseren Coworking Space im Herzen der Türkei, umgeben von historischen Schätzen wie Kappadokien, Pamukkale und der Geburtsstätte der türkischen Sprache.</p>
@@ -45,71 +47,57 @@
     </section>
 
     <!-- Coworking Section -->
-
-    <section class="section" id="coworking" style="background-color: #1B2239;">
+    <section class="section" id="coworking">
         <h2 class="section-title">Unser Coworking Space</h2>
-        <div class="slider-container">
-            <button class="slider-nav left" onclick="moveSlide(-1, 'coworking')">❮</button>
-            <div class="slider" id="coworking-slider">
-                <div class="feature-card">
-                    <div class="feature-img">
-                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Coworking Space">
-                    </div>
-                    <div class="feature-content">
-                        <h3 class="feature-title">Moderne Arbeitsplätze</h3>
-                        <p class="feature-text">Helle, inspirierende Arbeitsumgebung mit ergonomischen Möbeln und schnellem WiFi für produktives Arbeiten.</p>
-                        <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Details</a>
-                    </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-img">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Coworking Space">
                 </div>
-                
-                <div class="feature-card">
-                    <div class="feature-img">
-                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Meeting Raum">
-                    </div>
-                    <div class="feature-content">
-                        <h3 class="feature-title">Meeting Räume</h3>
-                        <p class="feature-text">Professionell ausgestattete Besprechungsräume für Teams und Kundenmeetings mit modernster Technik.</p>
-                        <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Details</a>
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-img">
-                        <img src="https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Community">
-                    </div>
-                    <div class="feature-content">
-                        <h3 class="feature-title">Vibrante Community</h3>
-                        <p class="feature-text">Netzwerken Sie mit lokalen und internationalen Professionals bei unseren regelmäßigen Events.</p>
-                        <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Details</a>
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-img">
-                        <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Arbeitsplatz">
-                    </div>
-                    <div class="feature-content">
-                        <h3 class="feature-title">Flexible Arbeitsplätze</h3>
-                        <p class="feature-text">Wählen Sie zwischen verschiedenen Arbeitsbereichen je nach Ihren Bedürfnissen.</p>
-                        <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Details</a>
-                    </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Moderne Arbeitsplätze</h3>
+                    <p class="feature-text">Helle, inspirierende Arbeitsumgebung mit ergonomischen Möbeln und schnellem WiFi für produktives Arbeiten.</p>
+                    <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Details</a>
                 </div>
             </div>
-            <button class="slider-nav right" onclick="moveSlide(1, 'coworking')">❯</button>
-        </div>
-<button class="slider-nav right" onclick="moveSlide(1, 'coworking')">❯</button>
+            
+            <div class="feature-card">
+                <div class="feature-img">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Meeting Raum">
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Meeting Räume</h3>
+                    <p class="feature-text">Professionell ausgestattete Besprechungsräume für Teams und Kundenmeetings mit modernster Technik.</p>
+                    <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Details</a>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-img">
+                    <img src="https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Community">
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Vibrante Community</h3>
+                    <p class="feature-text">Netzwerken Sie mit lokalen und internationalen Professionals bei unseren regelmäßigen Events.</p>
+                    <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Details</a>
+                </div>
+            </div>
         </div>
     </section>
 
-
     <!-- Kultur Section -->
-
-
-    <section class="section" id="kultur">
+    <section class="section tabs-section" id="kultur">
         <h2 class="section-title">Kulturelle Highlights</h2>
-        <div class="slider-container">
-            <button class="slider-nav left" onclick="moveSlide(-1, 'kultur')">❮</button>
-            <div class="slider" id="kultur-slider">
+        
+        <div class="tabs-header">
+            <button class="tab-btn active" data-tab="tab1">Kappadokien</button>
+            <button class="tab-btn" data-tab="tab2">Pamukkale</button>
+            <button class="tab-btn" data-tab="tab3">Mevlana</button>
+            <button class="tab-btn" data-tab="tab4">Karaman</button>
+        </div>
+        
+        <div class="tab-content active" id="tab1">
+            <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-img">
                         <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Kappadokien">
@@ -117,7 +105,6 @@
                     <div class="feature-content">
                         <h3 class="feature-title">Feenkamine & Höhlenkirchen</h3>
                         <p class="feature-text">Besuchen Sie die einzigartige Landschaft mit ihren bizarren Felsformationen und historischen Höhlenkirchen aus byzantinischer Zeit.</p>
-                        <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Details</a>
                     </div>
                 </div>
                 
@@ -128,7 +115,6 @@
                     <div class="feature-content">
                         <h3 class="feature-title">Heißluftballon-Fahrten</h3>
                         <p class="feature-text">Erleben Sie den Sonnenaufgang über der märchenhaften Landschaft Kappadokiens aus der Vogelperspektive.</p>
-                        <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Details</a>
                     </div>
                 </div>
                 
@@ -139,10 +125,47 @@
                     <div class="feature-content">
                         <h3 class="feature-title">Unterirdische Städte</h3>
                         <p class="feature-text">Entdecken Sie die faszinierenden unterirdischen Siedlungen, die bis zu 8 Stockwerke tief in den Fels gehauen wurden.</p>
-                        <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="tab2">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-img">
+                        <img src="https://images.unsplash.com/photo-1591703291603-2150887a3db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Pamukkale">
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Kalksinterterrassen</h3>
+                        <p class="feature-text">Die weißen Terrassen von Pamukkale entstanden durch kalkhaltige Thermalquellen und sind ein einzigartiges Naturwunder.</p>
                     </div>
                 </div>
                 
+                <div class="feature-card">
+                    <div class="feature-img">
+                        <img src="https://images.unsplash.com/photo-1623058451773-9c06b961aa0e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hierapolis">
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Antike Stadt Hierapolis</h3>
+                        <p class="feature-text">Besichtigen Sie die Ruinen dieser antiken Stadt mit ihrem beeindruckenden Theater und der Nekropole.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-img">
+                        <img src="https://images.unsplash.com/photo-1632499246019-6930b7b1b733?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Thermalbad">
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Antikes Thermalbad</h3>
+                        <p class="feature-text">Baden Sie in den warmen Thermalquellen, in denen schon die Römer ihre Gesundheit stärkten.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="tab3">
+            <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-img">
                         <img src="https://images.unsplash.com/photo-1580328220075-3c7042e2c4e1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Mevlana Museum">
@@ -150,128 +173,148 @@
                     <div class="feature-content">
                         <h3 class="feature-title">Mevlana Museum</h3>
                         <p class="feature-text">Besuchen Sie das Mausoleum von Dschalal ad-Din Muhammad Rumi, dem Begründer des Sufi-Ordens der tanzenden Derwische.</p>
-                        <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Details</a>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-img">
+                        <img src="https://images.unsplash.com/photo-1580328220083-40b8a1c9b4e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Derwisch-Tanz">
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Derwisch-Tanz</h3>
+                        <p class="feature-text">Erleben Sie die spirituelle Zeremonie der tanzenden Derwische, ein UNESCO-Kulturerbe.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-img">
+                        <img src="https://images.unsplash.com/photo-1580328220083-40b8a1c9b4e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sufi-Philosophie">
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Sufi-Philosophie</h3>
+                        <p class="feature-text">Tauchen Sie ein in die Lehren von Liebe, Toleranz und spiritueller Entwicklung.</p>
                     </div>
                 </div>
             </div>
-            <button class="slider-nav right" onclick="moveSlide(1, 'kultur')">❯</button>
+        </div>
+        
+        <div class="tab-content" id="tab4">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-img">
+                        <img src="https://images.unsplash.com/photo-1580328220083-40b8a1c9b4e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Karaman Burg">
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Karaman Kalesi</h3>
+                        <p class="feature-text">Die historische Burg von Karaman mit Blick über die Stadt und das Umland.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-img">
+                        <img src="https://images.unsplash.com/photo-1580328220083-40b8a1c9b4e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Türkische Sprache">
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Geburtsort der türkischen Sprache</h3>
+                        <p class="feature-text">Besuchen Sie das Museum zur Entwicklung der modernen türkischen Sprache.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-img">
+                        <img src="https://images.unsplash.com/photo-1580328220083-40b8a1c9b4e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Traditionelles Dorf">
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Traditionelle Dörfer</h3>
+                        <p class="feature-text">Erleben Sie das authentische ländliche Leben in den historischen Steinhäusern der Region.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Aktivitäten Section -->
-
     <section class="section" id="aktivitaeten">
         <h2 class="section-title">Aktivitäten & Veranstaltungen</h2>
-        <div class="slider-container">
-            <button class="slider-nav left" onclick="moveSlide(-1, 'aktivitaeten')">❮</button>
-            <div class="slider" id="aktivitaeten-slider">
-                <div class="feature-card">
-                    <div class="feature-img">
-                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sprachkurs">
-                    </div>
-                    <div class="feature-content">
-                        <h3 class="feature-title">Türkisch-Sprachkurse</h3>
-                        <p class="feature-text">Lernen Sie Türkisch in der Stadt, wo die moderne türkische Sprache geboren wurde.</p>
-                        <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Anmelden</a>
-                    </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-img">
+                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sprachkurs">
                 </div>
-                
-                <div class="feature-card">
-                    <div class="feature-img">
-                        <img src="https://images.unsplash.com/photo-1514326640560-7d063ef2aed5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Kochworkshop">
-                    </div>
-                    <div class="feature-content">
-                        <h3 class="feature-title">Kochworkshops</h3>
-                        <p class="feature-text">Lernen Sie traditionelle Gerichte der Region von lokalen Köchen zubereiten.</p>
-                        <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Anmelden</a>
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-img">
-                        <img src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Wanderung">
-                    </div>
-                    <div class="feature-content">
-                        <h3 class="feature-title">Geführte Wanderungen</h3>
-                        <p class="feature-text">Entdecken Sie die Natur- und Kulturhighlights der Region mit unseren Experten.</p>
-                        <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Anmelden</a>
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-img">
-                        <img src="https://images.unsplash.com/photo-1518630382440-9f0e3e19a8e1" alt="Wingsurfing">
-                    </div>
-                    <div class="feature-content">
-                        <h3 class="feature-title">Wingsurfing Events</h3>
-                        <p class="feature-text">Jährliche Wettbewerbe und Community-Events für alle Levels.</p>
-                        <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Anmelden</a>
-                    </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Türkisch-Sprachkurse</h3>
+                    <p class="feature-text">Lernen Sie Türkisch in der Stadt, wo die moderne türkische Sprache geboren wurde.</p>
+                    <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Anmelden</a>
                 </div>
             </div>
-            <button class="slider-nav right" onclick="moveSlide(1, 'aktivitaeten')">❯</button>
+            
+            <div class="feature-card">
+                <div class="feature-img">
+                    <img src="https://images.unsplash.com/photo-1514326640560-7d063ef2aed5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Kochworkshop">
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Kochworkshops</h3>
+                    <p class="feature-text">Lernen Sie traditionelle Gerichte der Region von lokalen Köchen zubereiten.</p>
+                    <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Anmelden</a>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-img">
+                    <img src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Wanderung">
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Geführte Wanderungen</h3>
+                    <p class="feature-text">Entdecken Sie die Natur- und Kulturhighlights der Region mit unseren Experten.</p>
+                    <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Anmelden</a>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Übernachtung Section -->
-
     <section class="section" id="uebernachtung">
         <h2 class="section-title">Traditionelle Übernachtung</h2>
-        <div class="slider-container">
-            <button class="slider-nav left" onclick="moveSlide(-1, 'uebernachtung')">❮</button>
-            <div class="slider" id="uebernachtung-slider">
-                <div class="feature-card">
-                    <div class="feature-img">
-                        <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Steinhaus">
-                    </div>
-                    <div class="feature-content">
-                        <h3 class="feature-title">Steinhäuser mit Charme</h3>
-                        <p class="feature-text">Übernachten Sie in restaurierten traditionellen Steinhäusern mit modernem Komfort.</p>
-                        <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Details</a>
-                    </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-img">
+                    <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Steinhaus">
                 </div>
-                
-                <div class="feature-card">
-                    <div class="feature-img">
-                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hof">
-                    </div>
-                    <div class="feature-content">
-                        <h3 class="feature-title">Idyllische Innenhöfe</h3>
-                        <p class="feature-text">Entspannen Sie in den typischen Innenhöfen mit Brunnen und traditioneller Atmosphäre.</p>
-                        <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Details</a>
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-img">
-                        <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Frühstück">
-                    </div>
-                    <div class="feature-content">
-                        <h3 class="feature-title">Hausgemachte Küche</h3>
-                        <p class="feature-text">Genießen Sie Frühstück mit regionalen Produkten und hausgemachten Spezialitäten.</p>
-                        <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Details</a>
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-img">
-                        <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Zimmer">
-                    </div>
-                    <div class="feature-content">
-                        <h3 class="feature-title">Komfortable Zimmer</h3>
-                        <p class="feature-text">Moderner Komfort in traditionellem Ambiente für einen erholsamen Aufenthalt.</p>
-                        <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Details</a>
-                    </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Steinhäuser mit Charme</h3>
+                    <p class="feature-text">Übernachten Sie in restaurierten traditionellen Steinhäusern mit modernem Komfort.</p>
+                    <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Details</a>
                 </div>
             </div>
-            <button class="slider-nav right" onclick="moveSlide(1, 'uebernachtung')">❯</button>
+            
+            <div class="feature-card">
+                <div class="feature-img">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hof">
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Idyllische Innenhöfe</h3>
+                    <p class="feature-text">Entspannen Sie in den typischen Innenhöfen mit Brunnen und traditioneller Atmosphäre.</p>
+                    <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Details</a>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-img">
+                    <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Frühstück">
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Hausgemachte Küche</h3>
+                    <p class="feature-text">Genießen Sie Frühstück mit regionalen Produkten und hausgemachten Spezialitäten.</p>
+                    <a href="#" class="btn" style="padding: 0.7rem 1.5rem;">Details</a>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Packages & Booking Section -->
-
-    <section class="section packages-section" id="pakete" style="background-color: #4F4047;">
+    <section class="section packages-section" id="pakete">
         <h2 class="section-title">Unsere Pakete</h2>
+        
         <div class="packages-tabs">
             <button class="package-tab-btn active" data-package="coworking">Coworking</button>
             <button class="package-tab-btn" data-package="kultur">Kultur & Tours</button>
@@ -461,7 +504,7 @@
                         </div>
                         
                         <div class="form-group full-width">
-                            <button type="button" class="btn btn-outline" id="reviewBookingBtn">Buchung überprüfen</button>
+                            <button type="button" class="btn" id="reviewBookingBtn">Buchung überprüfen</button>
                         </div>
                     </form>
                 </div>
@@ -469,20 +512,20 @@
         </div>
     </div>
 
-    <!-- Review Booking Modal -->
+    <!-- Review Modal -->
     <div class="review-modal landscape-modal" id="reviewModal">
         <div class="modal-content landscape-content">
             <button class="modal-close-btn" id="reviewCloseBtn">&times;</button>
             <div class="landscape-container">
                 <div class="landscape-image">
-                    <img src="./image/review-bg.jpg" alt="Buchung überprüfen">
+                    <img src="./image/review-bg.jpg" alt="Buchungsüberprüfung">
                     <div class="image-overlay">
-                        <h3>Bitte überprüfen Sie Ihre Buchung</h3>
-                        <p>Bestätigen Sie alle Details vor der Buchung</p>
+                        <h3>Überprüfen Sie Ihre Buchung</h3>
+                        <p>Bitte bestätigen Sie Ihre Angaben</p>
                     </div>
                 </div>
                 <div class="landscape-form">
-                    <h2 class="modal-title">Buchungsübersicht</h2>
+                    <h2 class="modal-title">Buchungsdetails</h2>
                     <div class="review-details">
                         <div class="detail-row">
                             <span class="detail-label">Paket:</span>
@@ -501,6 +544,10 @@
                             <span class="detail-value" id="reviewPhone"></span>
                         </div>
                         <div class="detail-row">
+                            <span class="detail-label">Personen:</span>
+                            <span class="detail-value" id="reviewGuests"></span>
+                        </div>
+                        <div class="detail-row">
                             <span class="detail-label">Check-in:</span>
                             <span class="detail-value" id="reviewCheckin"></span>
                         </div>
@@ -509,17 +556,12 @@
                             <span class="detail-value" id="reviewCheckout"></span>
                         </div>
                         <div class="detail-row">
-                            <span class="detail-label">Personen:</span>
-                            <span class="detail-value" id="reviewGuests"></span>
-                        </div>
-                        <div class="detail-row">
                             <span class="detail-label">Anforderungen:</span>
                             <span class="detail-value" id="reviewNotes"></span>
                         </div>
                     </div>
-                    
                     <div class="review-actions">
-                        <button class="btn btn-outline" id="editBookingBtn">Bearbeiten</button>
+                        <button class="btn btn-outline" id="editBookingBtn">Änderungen vornehmen</button>
                         <button class="btn" id="confirmBookingBtn">Buchung bestätigen</button>
                     </div>
                 </div>
@@ -528,7 +570,6 @@
     </div>
 
     <!-- Confirmation Modal - Landscape -->
-
     <div class="confirmation-modal landscape-modal" id="confirmationModal">
         <div class="modal-content landscape-content">
             <button class="modal-close-btn" id="confirmationCloseBtn">&times;</button>
@@ -582,8 +623,7 @@
     </div>
 
     <!-- Testimonials -->
-
-    <section class="section testimonials" style="background-color: #1B2239;">
+    <section class="section testimonials">
         <h2 class="section-title">Das sagen unsere Gäste</h2>
         <div class="testimonial-grid">
             <div class="testimonial-card">
@@ -628,8 +668,7 @@
     </section>
 
     <!-- Kontakt Section -->
-
-    <section class="section contact-section" id="kontakt" style="background-color: #4F4047;">
+    <section class="section contact-section" id="kontakt">
         <h2 class="section-title">Kontaktieren Sie uns</h2>
         <form class="contact-form">
             <div class="form-group">
@@ -664,7 +703,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="main-footer" style="background-color: #1B2239;">
+    <footer class="main-footer">
         <div class="footer-container">
             <div class="footer-col">
                 <a href="#" class="footer-logo">BM-Coworking</a>

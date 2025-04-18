@@ -3,9 +3,9 @@ const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 const mainNav = document.getElementById('mainNav');
 
 mobileMenuBtn.addEventListener('click', () => {
-    mobileMenuBtn.classList.toggle('active');
     mainNav.classList.toggle('active');
-    document.body.style.overflow = mainNav.classList.contains('active') ? 'hidden' : 'auto';
+    mobileMenuBtn.innerHTML = mainNav.classList.contains('active') ? 
+        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
 });
 
 // Header Scroll Effect
@@ -47,15 +47,14 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         
         if (targetElement) {
             window.scrollTo({
-                top: targetElement.offsetTop,
+                top: targetElement.offsetTop - 80,
                 behavior: 'smooth'
             });
             
             // Close mobile menu if open
             if (mainNav.classList.contains('active')) {
-                mobileMenuBtn.classList.remove('active');
                 mainNav.classList.remove('active');
-                document.body.style.overflow = 'auto';
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             }
         }
     });
@@ -64,11 +63,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Form Submission
 const contactForm = document.querySelector('.contact-form');
 
-contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    alert('Vielen Dank für Ihre Nachricht! Wir werden uns bald bei Ihnen melden.');
-    this.reset();
-});
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Vielen Dank für Ihre Nachricht! Wir werden uns bald bei Ihnen melden.');
+        this.reset();
+    });
+}
 
 // Packages & Booking Functionality
 const packageTabBtns = document.querySelectorAll('.package-tab-btn');
@@ -127,55 +128,65 @@ reviewCloseBtn.addEventListener('click', closeModals);
 confirmationCloseBtn.addEventListener('click', closeModals);
 confirmationOkBtn.addEventListener('click', closeModals);
 
-// Review booking before submission
+// Review booking button
 reviewBookingBtn.addEventListener('click', function() {
-    // Get form data
-    const formData = {
-        package: packageNameInput.value,
-        name: bookingForm.bookingName.value,
-        email: bookingForm.bookingEmail.value,
-        phone: bookingForm.bookingPhone.value,
-        checkin: bookingForm.bookingCheckin.value,
-        checkout: bookingForm.bookingCheckout.value,
-        guests: bookingForm.bookingGuests.value,
-        notes: bookingForm.bookingNotes.value || 'Keine'
-    };
+    // Validate form
+    const form = document.getElementById('bookingForm');
+    const requiredFields = form.querySelectorAll('[required]');
+    let isValid = true;
     
-    // Update review modal
-    document.getElementById('reviewPackage').textContent = formData.package;
-    document.getElementById('reviewName').textContent = formData.name;
-    document.getElementById('reviewEmail').textContent = formData.email;
-    document.getElementById('reviewPhone').textContent = formData.phone || 'Nicht angegeben';
-    document.getElementById('reviewCheckin').textContent = formData.checkin;
-    document.getElementById('reviewCheckout').textContent = formData.checkout;
-    document.getElementById('reviewGuests').textContent = formData.guests;
-    document.getElementById('reviewNotes').textContent = formData.notes;
+    requiredFields.forEach(field => {
+        if (!field.value) {
+            field.style.borderColor = 'red';
+            isValid = false;
+        } else {
+            field.style.borderColor = '#ddd';
+        }
+    });
     
-    // Hide booking modal and show review modal
+    if (!isValid) {
+        alert('Bitte füllen Sie alle erforderlichen Felder aus.');
+        return;
+    }
+    
+    // Validate dates
+    const checkin = new Date(form.bookingCheckin.value);
+    const checkout = new Date(form.bookingCheckout.value);
+    
+    if (checkin >= checkout) {
+        alert('Check-out Datum muss nach dem Check-in Datum liegen.');
+        form.bookingCheckout.style.borderColor = 'red';
+        return;
+    }
+    
+    // Fill review modal with data
+    document.getElementById('reviewPackage').textContent = packageNameInput.value;
+    document.getElementById('reviewName').textContent = form.bookingName.value;
+    document.getElementById('reviewEmail').textContent = form.bookingEmail.value;
+    document.getElementById('reviewPhone').textContent = form.bookingPhone.value || '-';
+    document.getElementById('reviewGuests').textContent = form.bookingGuests.value;
+    document.getElementById('reviewCheckin').textContent = new Date(form.bookingCheckin.value).toLocaleDateString('de-DE');
+    document.getElementById('reviewCheckout').textContent = new Date(form.bookingCheckout.value).toLocaleDateString('de-DE');
+    document.getElementById('reviewNotes').textContent = form.bookingNotes.value || '-';
+    
+    // Show review modal
     bookingModal.classList.remove('active');
     reviewModal.classList.add('active');
 });
 
-// Edit booking
+// Edit booking button
 editBookingBtn.addEventListener('click', function() {
     reviewModal.classList.remove('active');
     bookingModal.classList.add('active');
 });
 
-// Confirm booking
+// Confirm booking button
 confirmBookingBtn.addEventListener('click', function() {
-    // Validate dates
-    const checkin = new Date(bookingForm.bookingCheckin.value);
-    const checkout = new Date(bookingForm.bookingCheckout.value);
-    
-    if (checkin >= checkout) {
-        alert('Check-out Datum muss nach dem Check-in Datum liegen.');
-        reviewModal.classList.remove('active');
-        bookingModal.classList.add('active');
-        return;
-    }
+    const form = document.getElementById('bookingForm');
     
     // Calculate number of nights
+    const checkin = new Date(form.bookingCheckin.value);
+    const checkout = new Date(form.bookingCheckout.value);
     const timeDiff = checkout - checkin;
     const nights = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
     
@@ -191,14 +202,14 @@ confirmBookingBtn.addEventListener('click', function() {
     // Get form data
     const formData = {
         package: packageNameInput.value,
-        name: bookingForm.bookingName.value,
-        email: bookingForm.bookingEmail.value,
-        phone: bookingForm.bookingPhone.value,
-        checkin: formatDate(bookingForm.bookingCheckin.value),
-        checkout: formatDate(bookingForm.bookingCheckout.value),
+        name: form.bookingName.value,
+        email: form.bookingEmail.value,
+        phone: form.bookingPhone.value,
+        checkin: formatDate(form.bookingCheckin.value),
+        checkout: formatDate(form.bookingCheckout.value),
         nights: nights,
-        guests: bookingForm.bookingGuests.value,
-        notes: bookingForm.bookingNotes.value,
+        guests: form.bookingGuests.value,
+        notes: form.bookingNotes.value,
         reservationNumber: reservationNumber
     };
     
@@ -218,7 +229,7 @@ confirmBookingBtn.addEventListener('click', function() {
     confirmationModal.classList.add('active');
     
     // Reset form
-    bookingForm.reset();
+    form.reset();
 });
 
 // Function to send booking email
@@ -242,86 +253,39 @@ function sendBookingEmail(data) {
     // In der Praxis würden Sie hier EmailJS oder eine Backend-API aufrufen
 }
 
-// Slider Functionality
-function moveSlide(direction, sectionId) {
-    const slider = document.getElementById(`${sectionId}-slider`);
-    const card = slider.querySelector('.feature-card');
-    const cardWidth = card.offsetWidth;
-    const gap = 32;
-    const scrollAmount = (cardWidth + gap) * direction;
-    
-    slider.scrollBy({
-        left: scrollAmount,
-        behavior: 'smooth'
-    });
+// Initialize background images
+document.querySelectorAll('[data-bg-image]').forEach(section => {
+    const bgImage = section.getAttribute('data-bg-image');
+    if (bgImage) {
+        section.style.backgroundImage = `url('${bgImage}')`;
+        section.style.backgroundSize = 'cover';
+        section.style.backgroundPosition = 'center';
+        section.style.backgroundRepeat = 'no-repeat';
+        section.classList.add('section-with-bg');
+    }
+});
+
+// Fetch and update prices from API
+async function fetchAndUpdatePrices() {
+    try {
+        const response = await fetch('/api/prices');
+        if (!response.ok) throw new Error('Network response was not ok');
+        const prices = await response.json();
+        
+        // Update prices in the DOM
+        prices.forEach(item => {
+            const elements = document.querySelectorAll(`[data-package-id="${item.id}"] .pricing-price`);
+            elements.forEach(el => {
+                el.innerHTML = `€${item.price}<span>/${item.period}</span>`;
+            });
+        });
+    } catch (error) {
+        console.error('Error fetching prices:', error);
+    }
 }
 
-// Initialize sliders with proper event listeners
-document.addEventListener('DOMContentLoaded', function() {
-    const sliders = ['coworking-slider', 'kultur-slider', 'aktivitaeten-slider', 'uebernachtung-slider'];
-    
-    sliders.forEach(sliderId => {
-        const slider = document.getElementById(sliderId);
-        if (slider) {
-            // Touch and mouse events for slider
-            let isDown = false;
-            let startX;
-            let scrollLeft;
+// Initial fetch
+fetchAndUpdatePrices();
 
-            slider.addEventListener('mousedown', (e) => {
-                isDown = true;
-                slider.style.cursor = 'grabbing';
-                startX = e.pageX - slider.offsetLeft;
-                scrollLeft = slider.scrollLeft;
-            });
-
-            slider.addEventListener('mouseleave', () => {
-                isDown = false;
-                slider.style.cursor = 'grab';
-            });
-
-            slider.addEventListener('mouseup', () => {
-                isDown = false;
-                slider.style.cursor = 'grab';
-            });
-
-            slider.addEventListener('mousemove', (e) => {
-                if(!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 2;
-                slider.scrollLeft = scrollLeft - walk;
-            });
-
-            // Touch events
-            slider.addEventListener('touchstart', (e) => {
-                isDown = true;
-                startX = e.touches[0].pageX - slider.offsetLeft;
-                scrollLeft = slider.scrollLeft;
-            });
-
-            slider.addEventListener('touchend', () => {
-                isDown = false;
-            });
-
-            slider.addEventListener('touchmove', (e) => {
-                if(!isDown) return;
-                e.preventDefault();
-                const x = e.touches[0].pageX - slider.offsetLeft;
-                const walk = (x - startX) * 2;
-                slider.scrollLeft = scrollLeft - walk;
-            });
-        }
-    });
-});
-
-// Close mobile menu when clicking on a link
-document.querySelectorAll('.main-nav a').forEach(link => {
-    link.addEventListener('click', () => {
-        if (mainNav.classList.contains('active')) {
-            mobileMenuBtn.classList.remove('active');
-            mainNav.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-    });
-});
+// Update prices periodically
+setInterval(fetchAndUpdatePrices, 60000); // Update every minute
