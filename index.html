@@ -10,10 +10,10 @@
 <body>
     <!-- Header -->
     <header class="main-header">
-        <div class="header-container" data-bg-image="linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url('pfad/zum/bild2.jpg')">
+        <div class="header-container" data-bg-image="linear-gradient(rgba(79,64,71,1), rgba(79,64,71,1)), url('pfad/zum/bild2.jpg')">
             <a href="#" class="logo">
                 <img src="./image/logo1.png" alt="BM-Coworking">
-                Coworking
+                twa.
             </a>
             
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -46,10 +46,13 @@
         </div>
     </section>
 
-    <!-- Coworking Section -->
-    <section class="section" id="coworking" data-bg-image="linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url('pfad/zum/bild2.jpg')">
-        <h2 class="section-title">Unser Coworking Space</h2>
-        <div class="features-grid">
+    <!-- Coworking Section - Korrigierte Version -->
+
+<section class="section" id="coworking" data-bg-image="linear-gradient(rgba(226,68,60,1), rgba(226,68,60,1)), url('pfad/zum/bild2.jpg')">
+    <h2 class="section-title">Unser Coworking Space</h2>
+    <div class="slider-container">
+        <button class="slider-nav left" onclick="moveSlide(-1, 'coworking')">❮</button>
+        <div class="features-grid slider" id="coworking-slider">
             <div class="feature-card">
                 <div class="feature-img">
                     <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Coworking Space">
@@ -83,18 +86,24 @@
                 </div>
             </div>
         </div>
+        <button class="slider-nav right" onclick="moveSlide(1, 'coworking')">❯  </button>
+    </div>
     </section>
 
     <!-- Kultur Section -->
-    <section class="section tabs-section" id="kultur" data-bg-image="linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url('pfad/zum/bild2.jpg')">
+
+    <section class="section tabs-section" id="kultur" data-bg-image="linear-gradient(rgba(27,34,57,1), rgba(27,34,57,1)), url('pfad/zum/bild2.jpg')">
         <h2 class="section-title">Kulturelle Highlights</h2>
-        
+        <div class="slider-container">
+        <button class="slider-nav left" onclick="moveSlide(-1, 'kultur')">❮</button>
+        <div class="features-grid slider" id="kultur-slider">
         <div class="tabs-header">
-            <button class="tab-btn active" data-tab="tab1">Kappadokien</button>
-            <button class="tab-btn" data-tab="tab2">Pamukkale</button>
-            <button class="tab-btn" data-tab="tab3">Mevlana</button>
-            <button class="tab-btn" data-tab="tab4">Karaman</button>
-        </div>
+        <button class="tab-btn active" data-tab="tab1">Kappadokien</button>
+        <button class="tab-btn" data-tab="tab2">Pamukkale</button>
+        <button class="tab-btn" data-tab="tab3">Mevlana</button>
+        <button class="tab-btn" data-tab="tab4">Karaman</button>
+        <button class="tab-btn" data-tab="tab5">Wassersport</button>
+    </div>
         
         <div class="tab-content active" id="tab1">
             <div class="features-grid">
@@ -202,16 +211,6 @@
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-img">
-                        <img src="https://images.unsplash.com/photo-1580328220083-40b8a1c9b4e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Karaman Burg">
-                    </div>
-                    <div class="feature-content">
-                        <h3 class="feature-title">Karaman Kalesi</h3>
-                        <p class="feature-text">Die historische Burg von Karaman mit Blick über die Stadt und das Umland.</p>
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-img">
                         <img src="https://images.unsplash.com/photo-1580328220083-40b8a1c9b4e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Türkische Sprache">
                     </div>
                     <div class="feature-content">
@@ -229,13 +228,35 @@
                         <p class="feature-text">Erleben Sie das authentische ländliche Leben in den historischen Steinhäusern der Region.</p>
                     </div>
                 </div>
+                
+                <div class="feature-card">
+                    <div class="feature-img">
+                        <img src="https://images.unsplash.com/photo-1518630382440-9f0e3e19a8e1" alt="Wingsurfing Events">
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Wingsurfing Events</h3>
+                        <p class="feature-text">Jährliche Wettbewerbe und Community-Events für alle Levels.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="slider-nav right" onclick="moveSlide(1, 'kultur-wassersport')">❯</button>
+        </div>
+    </div>
+
+ <button class="slider-nav right" onclick="moveSlide(1, 'kultur')">❯</button>
+    </div>
+</section>
             </div>
         </div>
     </section>
 
     <!-- Aktivitäten Section -->
+
     <section class="section" id="aktivitaeten" data-bg-image="linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url('pfad/zum/bild2.jpg')">
         <h2 class="section-title">Aktivitäten & Veranstaltungen</h2>
+        <div class="slider-container">
+        <button class="slider-nav left" onclick="moveSlide(-1, 'aktivitaeten')">❮</button>
+        <div class="features-grid slider" id="aktivitaeten-slider">
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-img">
@@ -270,11 +291,17 @@
                 </div>
             </div>
         </div>
+<button class="slider-nav right" onclick="moveSlide(1, 'aktivitaeten')">❯</button>
+    </div>
     </section>
 
     <!-- Übernachtung Section -->
+
     <section class="section" id="uebernachtung" data-bg-image="linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url('pfad/zum/bild2.jpg')">
         <h2 class="section-title">Traditionelle Übernachtung</h2>
+ <div class="slider-container">
+        <button class="slider-nav left" onclick="moveSlide(-1, 'uebernachtung')">❮</button>
+        <div class="features-grid slider" id="uebernachtung-slider">
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-img">
@@ -309,12 +336,13 @@
                 </div>
             </div>
         </div>
+        <button class="slider-nav right" onclick="moveSlide(1, 'uebernachtung')">❯</button>
+    </div>
     </section>
 
 <!-- Packages & Booking Section -->
 <section class="section packages-section" id="pakete" data-bg-image="linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url('pfad/zum/bild2.jpg')">
     <h2 class="section-title">Unsere Pakete</h2>
-    
     <div class="packages-tabs">
         <button class="package-tab-btn active" data-package="coworking">Coworking</button>
         <button class="package-tab-btn" data-package="kultur">Kultur & Tours</button>

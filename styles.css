@@ -1,10 +1,10 @@
 :root {
-    --primary: #2D3748;
-    --secondary: #4A5568;
-    --accent: #E53E3E;
-    --light: #F7FAFC;
-    --dark: #1A202C;
-    --text: #2D3748;
+    --primary-dark: #1B2239;    /* R27 G34 B57 */
+    --primary-accent: #E2443C;  /* R226 G68 B60 */
+    --secondary-accent: #D5DD6A;/* R213 G221 B106 */
+    --neutral-dark: #4F4047;    /* R79 G64 B71 */
+    --neutral-light: #F5EAE1;   /* R245 G234 B225 */
+
 }
 
 * {
@@ -26,7 +26,8 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
+    background-color: var(--primary-dark);
+    color: var(--neutral-light);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     transition: all 0.3s ease;
@@ -135,7 +136,7 @@ body {
 
 .btn {
     display: inline-block;
-    background-color: var(--accent);
+    background-color: var(--primary-accent);
     color: white;
     padding: 1rem 2.5rem;
     border-radius: 50px;
@@ -143,6 +144,9 @@ body {
     font-weight: 600;
     transition: all 0.3s;
     border: 2px solid var(--accent);
+    cursor: pointer;
+    text-align: center;
+    border: none;
 }
 
 .btn:hover {
@@ -205,6 +209,7 @@ body {
 .feature-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    border-color: var(--secondary-accent);
 }
 
 .feature-img {
@@ -416,8 +421,8 @@ textarea.form-control {
 
 /* Footer */
 .main-footer {
-    background-color: var(--dark);
-    color: white;
+    background-color: var(--neutral-dark);
+    color: var(--neutral-light);
     padding: 4rem 5% 2rem;
 }
 
@@ -490,30 +495,15 @@ textarea.form-control {
     font-size: 0.9rem;
 }
 
-/* ===== EXPLIZITE SECTION-HINTERGRÜNDE ===== */
-#coworking.section {
-    background-color: #ffffff !important;
+/* ===== vereinfachte SECTION-HINTERGRÜNDE ===== */
+.section-with-bg {
+    background-color: #ffffff;
 }
 
-#kultur.section {
-    background-color: #f8f9fa !important;
+.section-with-bg:nth-child(even) {
+    background-color: #f8f9fa;
 }
 
-#aktivitaeten.section {
-    background-color: #ffffff !important;
-}
-
-#uebernachtung.section {
-    background-color: #f8f9fa !important;
-}
-
-#pakete.section {
-    background-color: #ffffff !important;
-}
-
-#kontakt.section {
-    background-color: #f8f9fa !important;
-}
 
 
 /* ===== HINTERGRUNDBILDER FÜR SECTIONS ===== */
@@ -610,6 +600,21 @@ textarea.form-control {
     }
 }
 
+@media (max-width: 768px) {
+    .landscape-container {
+        flex-direction: column;
+    }
+    
+    .landscape-image {
+        min-height: 200px;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
 /* Packages & Booking Section */
 .packages-section {
     background-color: var(--light);
@@ -625,20 +630,21 @@ textarea.form-control {
 
 .package-tab-btn {
     padding: 1rem 2rem;
-    background: none;
-    border: none;
+    background: var(--primary-accent);
+    border: white;
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--secondary);
+    color: var(--accent);
     cursor: pointer;
     position: relative;
     transition: all 0.3s;
     border-radius: 50px;
+    outline: none;
 }
 
 .package-tab-btn.active {
     background-color: var(--accent);
-    color: white;
+    color: red;
 }
 
 .package-content {
@@ -970,4 +976,97 @@ textarea.form-control {
     display: block;
     width: 100%;
     margin-top: 1rem;
+}
+
+/* Updated Slider Styles */
+.slider-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    overflow: hidden;
+}
+
+.slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* Für iOS */
+    scroll-snap-type: x mandatory;
+    gap: 2rem;
+    padding: 1rem 0;
+    scrollbar-width: none; /* Firefox */
+    cursor: grab;
+}
+
+.slider:active {
+    cursor: grabbing;
+}
+
+.slider::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.feature-card {
+    scroll-snap-align: start;
+    flex: 0 0 calc(33.333% - 1.33rem);
+    min-width: 300px;
+    user-select: none; /* Verhindert Textauswahl beim Ziehen */
+}
+
+/* Responsive Anpassungen */
+@media (max-width: 992px) {
+    .feature-card {
+        flex: 0 0 calc(50% - 1rem);
+    }
+}
+
+@media (max-width: 768px) {
+    .slider {
+        scroll-snap-type: x proximity; /* Sanfteres Snap auf Mobile */
+    }
+    
+    .feature-card {
+        flex: 0 0 85%;
+        min-width: 85%;
+    }
+    
+    .slider-nav {
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+    }
+}
+
+/* Pfeil-Navigation sichtbarer machen */
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: rgba(229, 62, 62, 0.8);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.slider-nav:hover {
+    background: rgba(229, 62, 62, 1);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.slider-nav.left {
+    left: 10px;
+}
+
+.slider-nav.right {
+    right: 10px;
 }

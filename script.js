@@ -254,3 +254,84 @@ fetchAndUpdatePrices();
 
 // Optional: Update prices periodically
 setInterval(fetchAndUpdatePrices, 60000); // Update every minute
+
+async function fetchAndUpdatePrices() {
+    try {
+        const response = await fetch('/api/prices');
+        if (!response.ok) throw new Error('Network response was not ok');
+        const prices = await response.json();
+        // ... rest of the function
+    } catch (error) {
+        console.error('Error fetching prices:', error);
+        // Optional: Show user-friendly error message
+    }
+}
+
+// Slider Functionality - Updated version
+function moveSlide(direction, sectionId) {
+    const slider = document.getElementById(`${sectionId}-slider`);
+    const cardWidth = slider.querySelector('.feature-card').offsetWidth;
+    const gap = 32; // 2rem gap in pixels
+    const scrollAmount = (cardWidth + gap) * direction;
+    
+    slider.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+    });
+}
+
+// Initialize sliders with proper event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    const sliders = ['coworking-slider', 'kultur-wassersport-slider'];
+    
+    sliders.forEach(sliderId => {
+        const slider = document.getElementById(sliderId);
+        if (slider) {
+            // Add touch events for mobile
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+            });
+
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+            });
+
+            slider.addEventListener('mousemove', (e) => {
+                if(!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2; // Scroll speed
+                slider.scrollLeft = scrollLeft - walk;
+            });
+
+            // Touch events
+            slider.addEventListener('touchstart', (e) => {
+                isDown = true;
+                startX = e.touches[0].pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+
+            slider.addEventListener('touchend', () => {
+                isDown = false;
+            });
+
+            slider.addEventListener('touchmove', (e) => {
+                if(!isDown) return;
+                e.preventDefault();
+                const x = e.touches[0].pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2;
+                slider.scrollLeft = scrollLeft - walk;
+            });
+        }
+    });
+});
