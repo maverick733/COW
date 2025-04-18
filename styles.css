@@ -24,14 +24,18 @@ body {
 /* Header */
 .main-header {
     position: fixed;
-    top:  10px;
-    left: 40px;
-    width: 95%;
+    top: 0.5cm;
+    left: 0.5cm;
+    right: 0.5cm;
+    width: calc(100% - 2cm);
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(10px);
     z-index: 1000;
-    transition: all 0.3s ease 1000s;
+    transition: all 0.3s ease;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 35px;
+    margin: 0 auto;
+    max-width: 1400px;
 }
 
 .main-header.scrolled {
@@ -876,6 +880,12 @@ textarea.form-control {
     .contact-form {
         grid-template-columns: 1fr;
     }
+    .main-header {
+        top: 1cm;
+        left: 1cm;
+        right: 1cm;
+        width: calc(100% - 2cm);
+    }
 }
 
 @media (max-width: 768px) {
@@ -922,6 +932,18 @@ textarea.form-control {
     .review-actions {
         flex-direction: column;
     }
+    .main-header {
+        top: 0.5cm;
+        left: 0.5cm;
+        right: 0.5cm;
+        width: calc(100% - 1cm);
+        border-radius: 0 0 15px 15px;
+    }
+    
+    .header-container {
+        padding: 1rem;
+    }
+
 }
 
 @media (max-width: 480px) {
@@ -949,4 +971,12 @@ textarea.form-control {
     .landscape-form {
         padding: 1rem;
     }
+    .main-header {
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        border-radius: 0;
+    }
+
 }
