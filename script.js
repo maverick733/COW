@@ -47,7 +47,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         
         if (targetElement) {
             window.scrollTo({
-                top: targetElement.offsetTop - 100,
+                top: targetElement.offsetTop,
                 behavior: 'smooth'
             });
             
@@ -247,7 +247,7 @@ function moveSlide(direction, sectionId) {
     const slider = document.getElementById(`${sectionId}-slider`);
     const card = slider.querySelector('.feature-card');
     const cardWidth = card.offsetWidth;
-    const gap = 32; // 2rem gap in pixels
+    const gap = 32;
     const scrollAmount = (cardWidth + gap) * direction;
     
     slider.scrollBy({
@@ -263,16 +263,16 @@ document.addEventListener('DOMContentLoaded', function() {
     sliders.forEach(sliderId => {
         const slider = document.getElementById(sliderId);
         if (slider) {
-            // Add touch events for mobile
+            // Touch and mouse events for slider
             let isDown = false;
             let startX;
             let scrollLeft;
 
             slider.addEventListener('mousedown', (e) => {
                 isDown = true;
+                slider.style.cursor = 'grabbing';
                 startX = e.pageX - slider.offsetLeft;
                 scrollLeft = slider.scrollLeft;
-                slider.style.cursor = 'grabbing';
             });
 
             slider.addEventListener('mouseleave', () => {
@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if(!isDown) return;
                 e.preventDefault();
                 const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 2; // Scroll speed
+                const walk = (x - startX) * 2;
                 slider.scrollLeft = scrollLeft - walk;
             });
 

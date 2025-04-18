@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="main-header">
-        <div class="header-container">
+    
+    <!-- Hero Section mit Navigation -->
+
+    <section class="hero-section" id="home">
+        <nav class="hero-nav">
             <a href="#" class="logo">
                 <img src="./image/logo1.png" alt="BM-Coworking">
                 twa.
@@ -20,9 +22,8 @@
                 <i class="fas fa-bars"></i>
             </button>
             
-            <nav class="main-nav" id="mainNav">
+            <div class="main-nav" id="mainNav">
                 <ul>
-                    <li><a href="#home">Startseite</a></li>
                     <li><a href="#coworking">Coworking</a></li>
                     <li><a href="#kultur">Kultur</a></li>
                     <li><a href="#aktivitaeten">Aktivitäten</a></li>
@@ -30,12 +31,9 @@
                     <li><a href="#pakete">Pakete</a></li>
                     <li><a href="#kontakt">Kontakt</a></li>
                 </ul>
-            </nav>
-        </div>
-    </header>
+            </div>
+        </nav>
 
-    <!-- Hero Section -->
-    <section class="hero-section" id="home">
         <div class="hero-content">
             <h1 class="hero-title">Arbeiten & Kultur erleben in Karaman</h1>
             <p class="hero-subtitle">Entdecken Sie unseren Coworking Space im Herzen der Türkei, umgeben von historischen Schätzen wie Kappadokien, Pamukkale und der Geburtsstätte der türkischen Sprache.</p>
@@ -47,7 +45,8 @@
     </section>
 
     <!-- Coworking Section -->
-    <section class="section" id="coworking">
+
+    <section class="section" id="coworking" style="background-color: #1B2239;">
         <h2 class="section-title">Unser Coworking Space</h2>
         <div class="slider-container">
             <button class="slider-nav left" onclick="moveSlide(-1, 'coworking')">❮</button>
@@ -98,9 +97,14 @@
             </div>
             <button class="slider-nav right" onclick="moveSlide(1, 'coworking')">❯</button>
         </div>
+<button class="slider-nav right" onclick="moveSlide(1, 'coworking')">❯</button>
+        </div>
     </section>
 
+
     <!-- Kultur Section -->
+
+
     <section class="section" id="kultur">
         <h2 class="section-title">Kulturelle Highlights</h2>
         <div class="slider-container">
@@ -155,6 +159,7 @@
     </section>
 
     <!-- Aktivitäten Section -->
+
     <section class="section" id="aktivitaeten">
         <h2 class="section-title">Aktivitäten & Veranstaltungen</h2>
         <div class="slider-container">
@@ -209,6 +214,7 @@
     </section>
 
     <!-- Übernachtung Section -->
+
     <section class="section" id="uebernachtung">
         <h2 class="section-title">Traditionelle Übernachtung</h2>
         <div class="slider-container">
@@ -263,7 +269,8 @@
     </section>
 
     <!-- Packages & Booking Section -->
-    <section class="section packages-section" id="pakete">
+
+    <section class="section packages-section" id="pakete" style="background-color: #4F4047;">
         <h2 class="section-title">Unsere Pakete</h2>
         <div class="packages-tabs">
             <button class="package-tab-btn active" data-package="coworking">Coworking</button>
@@ -521,6 +528,7 @@
     </div>
 
     <!-- Confirmation Modal - Landscape -->
+
     <div class="confirmation-modal landscape-modal" id="confirmationModal">
         <div class="modal-content landscape-content">
             <button class="modal-close-btn" id="confirmationCloseBtn">&times;</button>
@@ -574,7 +582,8 @@
     </div>
 
     <!-- Testimonials -->
-    <section class="section testimonials">
+
+    <section class="section testimonials" style="background-color: #1B2239;">
         <h2 class="section-title">Das sagen unsere Gäste</h2>
         <div class="testimonial-grid">
             <div class="testimonial-card">
@@ -619,7 +628,8 @@
     </section>
 
     <!-- Kontakt Section -->
-    <section class="section contact-section" id="kontakt">
+
+    <section class="section contact-section" id="kontakt" style="background-color: #4F4047;">
         <h2 class="section-title">Kontaktieren Sie uns</h2>
         <form class="contact-form">
             <div class="form-group">
@@ -654,7 +664,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="main-footer">
+    <footer class="main-footer" style="background-color: #1B2239;">
         <div class="footer-container">
             <div class="footer-col">
                 <a href="#" class="footer-logo">BM-Coworking</a>
