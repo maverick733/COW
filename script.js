@@ -3,7 +3,9 @@ const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 const mainNav = document.getElementById('mainNav');
 
 mobileMenuBtn.addEventListener('click', () => {
+    mobileMenuBtn.classList.toggle('active');
     mainNav.classList.toggle('active');
+    document.body.style.overflow = mainNav.classList.contains('active') ? 'hidden' : 'auto';
 });
 
 // Header Scroll Effect
@@ -51,7 +53,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             
             // Close mobile menu if open
             if (mainNav.classList.contains('active')) {
+                mobileMenuBtn.classList.remove('active');
                 mainNav.classList.remove('active');
+                document.body.style.overflow = 'auto';
             }
         }
     });
@@ -65,19 +69,25 @@ contactForm.addEventListener('submit', function(e) {
     alert('Vielen Dank für Ihre Nachricht! Wir werden uns bald bei Ihnen melden.');
     this.reset();
 });
+
 // Packages & Booking Functionality
 const packageTabBtns = document.querySelectorAll('.package-tab-btn');
 const packageContents = document.querySelectorAll('.package-content');
 const packageBookBtns = document.querySelectorAll('.package-book-btn');
 const bookingModal = document.getElementById('bookingModal');
+const reviewModal = document.getElementById('reviewModal');
 const confirmationModal = document.getElementById('confirmationModal');
 const modalCloseBtn = document.getElementById('modalCloseBtn');
+const reviewCloseBtn = document.getElementById('reviewCloseBtn');
 const confirmationCloseBtn = document.getElementById('confirmationCloseBtn');
 const confirmationOkBtn = document.getElementById('confirmationOkBtn');
 const bookingForm = document.getElementById('bookingForm');
 const packageNameInput = document.getElementById('packageName');
 const confirmedPackageSpan = document.getElementById('confirmedPackage');
 const reservationNumberSpan = document.getElementById('reservationNumber');
+const reviewBookingBtn = document.getElementById('reviewBookingBtn');
+const editBookingBtn = document.getElementById('editBookingBtn');
+const confirmBookingBtn = document.getElementById('confirmBookingBtn');
 
 // Package tabs
 packageTabBtns.forEach(btn => {
@@ -107,24 +117,61 @@ packageBookBtns.forEach(btn => {
 // Close modals
 function closeModals() {
     bookingModal.classList.remove('active');
+    reviewModal.classList.remove('active');
     confirmationModal.classList.remove('active');
     document.body.style.overflow = 'auto';
 }
 
 modalCloseBtn.addEventListener('click', closeModals);
+reviewCloseBtn.addEventListener('click', closeModals);
 confirmationCloseBtn.addEventListener('click', closeModals);
 confirmationOkBtn.addEventListener('click', closeModals);
 
-// Booking form submission
-bookingForm.addEventListener('submit', function(e) {
-    e.preventDefault();
+// Review booking before submission
+reviewBookingBtn.addEventListener('click', function() {
+    // Get form data
+    const formData = {
+        package: packageNameInput.value,
+        name: bookingForm.bookingName.value,
+        email: bookingForm.bookingEmail.value,
+        phone: bookingForm.bookingPhone.value,
+        checkin: bookingForm.bookingCheckin.value,
+        checkout: bookingForm.bookingCheckout.value,
+        guests: bookingForm.bookingGuests.value,
+        notes: bookingForm.bookingNotes.value || 'Keine'
+    };
     
+    // Update review modal
+    document.getElementById('reviewPackage').textContent = formData.package;
+    document.getElementById('reviewName').textContent = formData.name;
+    document.getElementById('reviewEmail').textContent = formData.email;
+    document.getElementById('reviewPhone').textContent = formData.phone || 'Nicht angegeben';
+    document.getElementById('reviewCheckin').textContent = formData.checkin;
+    document.getElementById('reviewCheckout').textContent = formData.checkout;
+    document.getElementById('reviewGuests').textContent = formData.guests;
+    document.getElementById('reviewNotes').textContent = formData.notes;
+    
+    // Hide booking modal and show review modal
+    bookingModal.classList.remove('active');
+    reviewModal.classList.add('active');
+});
+
+// Edit booking
+editBookingBtn.addEventListener('click', function() {
+    reviewModal.classList.remove('active');
+    bookingModal.classList.add('active');
+});
+
+// Confirm booking
+confirmBookingBtn.addEventListener('click', function() {
     // Validate dates
-    const checkin = new Date(this.bookingCheckin.value);
-    const checkout = new Date(this.bookingCheckout.value);
+    const checkin = new Date(bookingForm.bookingCheckin.value);
+    const checkout = new Date(bookingForm.bookingCheckout.value);
     
     if (checkin >= checkout) {
         alert('Check-out Datum muss nach dem Check-in Datum liegen.');
+        reviewModal.classList.remove('active');
+        bookingModal.classList.add('active');
         return;
     }
     
@@ -144,14 +191,14 @@ bookingForm.addEventListener('submit', function(e) {
     // Get form data
     const formData = {
         package: packageNameInput.value,
-        name: this.bookingName.value,
-        email: this.bookingEmail.value,
-        phone: this.bookingPhone.value,
-        checkin: formatDate(this.bookingCheckin.value),
-        checkout: formatDate(this.bookingCheckout.value),
+        name: bookingForm.bookingName.value,
+        email: bookingForm.bookingEmail.value,
+        phone: bookingForm.bookingPhone.value,
+        checkin: formatDate(bookingForm.bookingCheckin.value),
+        checkout: formatDate(bookingForm.bookingCheckout.value),
         nights: nights,
-        guests: this.bookingGuests.value,
-        notes: this.bookingNotes.value,
+        guests: bookingForm.bookingGuests.value,
+        notes: bookingForm.bookingNotes.value,
         reservationNumber: reservationNumber
     };
     
@@ -166,12 +213,12 @@ bookingForm.addEventListener('submit', function(e) {
     // Send confirmation email (simulated)
     sendBookingEmail(formData);
     
-    // Hide booking modal and show confirmation
-    bookingModal.classList.remove('active');
+    // Hide review modal and show confirmation
+    reviewModal.classList.remove('active');
     confirmationModal.classList.add('active');
     
     // Reset form
-    this.reset();
+    bookingForm.reset();
 });
 
 // Function to send booking email
@@ -195,82 +242,11 @@ function sendBookingEmail(data) {
     // In der Praxis würden Sie hier EmailJS oder eine Backend-API aufrufen
 }
 
-
-// Function to send booking email (simulated with EmailJS or could be replaced with actual API call)
-function sendBookingEmail(data) {
-    const emailContent = `
-        Neue Buchung bei BM-Coworking:
-        
-        Paket: ${data.package}
-        Name: ${data.name}
-        Email: ${data.email}
-        Telefon: ${data.phone}
-        Datum: ${data.date}
-        Besondere Anforderungen: ${data.notes}
-        Reservierungsnummer: ${data.reservationNumber}
-    `;
-    
-    // In a real implementation, you would use EmailJS or a backend service
-    console.log('Email would be sent to issiman@protonmail.com with content:', emailContent);
-    
-    // For demo purposes, we'll just log it
-    // In production, you would replace this with actual email sending code
-    // For example using EmailJS:
-    /*
-    emailjs.send('service_id', 'template_id', {
-        to_email: 'issiman@protonmail.com',
-        from_name: 'BM-Coworking Buchungssystem',
-        message: emailContent
-    });
-    */
-}
-
-// Hintergrundbilder initialisieren
-document.querySelectorAll('[data-bg-image]').forEach(section => {
-    section.style.backgroundImage = section.getAttribute('data-bg-image');
-    section.classList.add('section-with-bg');
-});
-
-// Fetch and update prices from Excel
-async function fetchAndUpdatePrices() {
-    try {
-        const response = await fetch('/api/prices');
-        const prices = await response.json();
-        
-        // Update prices in the DOM
-        prices.forEach(item => {
-            const elements = document.querySelectorAll(`[data-package-id="${item.id}"] .pricing-price`);
-            elements.forEach(el => {
-                el.innerHTML = `€${item.price}<span>/${item.period}</span>`;
-            });
-        });
-    } catch (error) {
-        console.error('Error fetching prices:', error);
-    }
-}
-
-// Initial fetch
-fetchAndUpdatePrices();
-
-// Optional: Update prices periodically
-setInterval(fetchAndUpdatePrices, 60000); // Update every minute
-
-async function fetchAndUpdatePrices() {
-    try {
-        const response = await fetch('/api/prices');
-        if (!response.ok) throw new Error('Network response was not ok');
-        const prices = await response.json();
-        // ... rest of the function
-    } catch (error) {
-        console.error('Error fetching prices:', error);
-        // Optional: Show user-friendly error message
-    }
-}
-
-// Slider Functionality - Updated version
+// Slider Functionality
 function moveSlide(direction, sectionId) {
     const slider = document.getElementById(`${sectionId}-slider`);
-    const cardWidth = slider.querySelector('.feature-card').offsetWidth;
+    const card = slider.querySelector('.feature-card');
+    const cardWidth = card.offsetWidth;
     const gap = 32; // 2rem gap in pixels
     const scrollAmount = (cardWidth + gap) * direction;
     
@@ -282,7 +258,7 @@ function moveSlide(direction, sectionId) {
 
 // Initialize sliders with proper event listeners
 document.addEventListener('DOMContentLoaded', function() {
-    const sliders = ['coworking-slider', 'kultur-wassersport-slider'];
+    const sliders = ['coworking-slider', 'kultur-slider', 'aktivitaeten-slider', 'uebernachtung-slider'];
     
     sliders.forEach(sliderId => {
         const slider = document.getElementById(sliderId);
@@ -296,14 +272,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 isDown = true;
                 startX = e.pageX - slider.offsetLeft;
                 scrollLeft = slider.scrollLeft;
+                slider.style.cursor = 'grabbing';
             });
 
             slider.addEventListener('mouseleave', () => {
                 isDown = false;
+                slider.style.cursor = 'grab';
             });
 
             slider.addEventListener('mouseup', () => {
                 isDown = false;
+                slider.style.cursor = 'grab';
             });
 
             slider.addEventListener('mousemove', (e) => {
@@ -332,6 +311,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 const walk = (x - startX) * 2;
                 slider.scrollLeft = scrollLeft - walk;
             });
+        }
+    });
+});
+
+// Close mobile menu when clicking on a link
+document.querySelectorAll('.main-nav a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (mainNav.classList.contains('active')) {
+            mobileMenuBtn.classList.remove('active');
+            mainNav.classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
     });
 });
