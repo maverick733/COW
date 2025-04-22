@@ -902,19 +902,30 @@ textarea.form-control {
 }
 
 @media (max-width: 768px) {
+    .landscape-modal .modal-content {
+        height: 90vh;
+        width: 95%;
+        padding: 0;
+        overflow: hidden;
+    }
+    
     .landscape-container {
         flex-direction: column;
-        max-height: 80vh;
+        height: 100%;
+        overflow: hidden;
     }
     
     .landscape-image {
-        min-height: 200px;
-        max-height: 200px;
+        min-height: 150px;
+        max-height: 150px;
+        flex: 0 0 auto;
     }
     
     .landscape-form {
-        max-height: none;
-        overflow-y: visible;
+        flex: 1;
+        padding: 1.5rem;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
     
     .form-row {
@@ -924,17 +935,30 @@ textarea.form-control {
     
     .review-actions {
         flex-direction: column;
+        gap: 0.5rem;
     }
     
     .confirmation-details, .review-details {
-        max-height: 200px;
+        max-height: 40vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .modal-close-btn {
+        background: rgba(255,255,255,0.8);
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 
 @media (max-width: 480px) {
-    .modal-content {
-        width: 95%;
-        padding: 1rem;
+    .landscape-image {
+        min-height: 120px;
+        max-height: 120px;
     }
     
     .landscape-form {
@@ -953,4 +977,37 @@ textarea.form-control {
     .detail-value {
         margin-top: 0.25rem;
     }
+    
+    /* Touch-friendly form elements */
+    input, textarea, select {
+        font-size: 16px !important; /* Verhindert automatisches Zoomen in iOS */
+        min-height: 44px !important; /* Mindestgröße für Touch-Ziele */
+    }
+    
+    button, .btn {
+        min-height: 44px;
+        padding: 0.8rem 1.5rem;
+    }
+    
+    /* Scroll-Snap für bessere mobile Erfahrung */
+    .landscape-form {
+        scroll-snap-type: y proximity;
+    }
+    
+    .form-group {
+        scroll-snap-align: start;
+    }
+}
+
+/* Smooth scrolling for modals */
+.modal-content {
+    scroll-behavior: smooth;
+}
+
+/* Prevent body scroll when modal is open */
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
 }

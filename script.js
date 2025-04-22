@@ -105,21 +105,31 @@ packageTabBtns.forEach(btn => {
     });
 });
 
-// Open booking modal
+// Open booking modal with body scroll lock
 packageBookBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         const packageName = btn.getAttribute('data-package');
         packageNameInput.value = packageName;
         bookingModal.classList.add('active');
+        document.body.classList.add('modal-open');
         document.body.style.overflow = 'hidden';
+        
+        // Scroll to top of form on mobile
+        if (window.innerWidth <= 768) {
+            const formContainer = document.querySelector('.landscape-form');
+            if (formContainer) {
+                formContainer.scrollTo(0, 0);
+            }
+        }
     });
 });
 
-// Close modals
+// Close modals and restore body scroll
 function closeModals() {
     bookingModal.classList.remove('active');
     reviewModal.classList.remove('active');
     confirmationModal.classList.remove('active');
+    document.body.classList.remove('modal-open');
     document.body.style.overflow = 'auto';
 }
 
@@ -127,6 +137,15 @@ modalCloseBtn.addEventListener('click', closeModals);
 reviewCloseBtn.addEventListener('click', closeModals);
 confirmationCloseBtn.addEventListener('click', closeModals);
 confirmationOkBtn.addEventListener('click', closeModals);
+
+// Close modal when clicking on backdrop
+[bookingModal, reviewModal, confirmationModal].forEach(modal => {
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModals();
+        }
+    });
+});
 
 // Review booking button
 reviewBookingBtn.addEventListener('click', function() {
@@ -172,12 +191,28 @@ reviewBookingBtn.addEventListener('click', function() {
     // Show review modal
     bookingModal.classList.remove('active');
     reviewModal.classList.add('active');
+    
+    // Scroll to top of review modal on mobile
+    if (window.innerWidth <= 768) {
+        const reviewContainer = document.querySelector('.review-modal .landscape-form');
+        if (reviewContainer) {
+            reviewContainer.scrollTo(0, 0);
+        }
+    }
 });
 
 // Edit booking button
 editBookingBtn.addEventListener('click', function() {
     reviewModal.classList.remove('active');
     bookingModal.classList.add('active');
+    
+    // Scroll to top of form on mobile
+    if (window.innerWidth <= 768) {
+        const formContainer = document.querySelector('.landscape-form');
+        if (formContainer) {
+            formContainer.scrollTo(0, 0);
+        }
+    }
 });
 
 // Confirm booking button
@@ -230,6 +265,14 @@ confirmBookingBtn.addEventListener('click', function() {
     
     // Reset form
     form.reset();
+    
+    // Scroll to top of confirmation modal on mobile
+    if (window.innerWidth <= 768) {
+        const confirmationContainer = document.querySelector('.confirmation-modal .landscape-form');
+        if (confirmationContainer) {
+            confirmationContainer.scrollTo(0, 0);
+        }
+    }
 });
 
 // Function to send booking email
@@ -289,3 +332,26 @@ fetchAndUpdatePrices();
 
 // Update prices periodically
 setInterval(fetchAndUpdatePrices, 60000); // Update every minute
+
+// Better mobile input handling
+document.addEventListener('DOMContentLoaded', function() {
+    // Prevent zoom on input focus in mobile
+    document.addEventListener('touchstart', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+            document.body.style.zoom = '100%';
+        }
+    }, { passive: true });
+    
+    // Improve date input on mobile
+    if ('ontouchstart' in window) {
+        const dateInputs = document.querySelectorAll('input[type="date"]');
+        dateInputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.type = 'date';
+            });
+            input.addEventListener('blur', function() {
+                if (!this.value) this.type = 'text';
+            });
+        });
+    }
+});
