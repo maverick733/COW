@@ -7,6 +7,10 @@ const heroSlider = () => {
     let currentIndex = 0;
     let autoSlideInterval;
     
+    // Update arrows to use Font Awesome icons
+    prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+    nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+    
     // Function to show slide
     const showSlide = (index) => {
         // Hide all slides
@@ -35,7 +39,7 @@ const heroSlider = () => {
     
     // Auto slide
     const startAutoSlide = () => {
-        autoSlideInterval = setInterval(nextSlide, 5000);
+        autoSlideInterval = setInterval(nextSlide, 4000); // Changed to 4 seconds
     };
     
     // Reset auto slide timer
@@ -102,13 +106,28 @@ mobileMenuBtn.addEventListener('click', () => {
 
 // Header Scroll Effect
 const header = document.querySelector('.main-header');
+let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) {
-        header.classList.add('scrolled');
-    } else {
+    const currentScroll = window.scrollY;
+    
+    if (currentScroll <= 0) {
+        header.classList.remove('scrolled-up');
         header.classList.remove('scrolled');
+        return;
     }
+    
+    if (currentScroll > lastScroll && !header.classList.contains('scrolled-up')) {
+        // Down scroll
+        header.classList.remove('scrolled');
+        header.classList.add('scrolled-up');
+    } else if (currentScroll < lastScroll && header.classList.contains('scrolled-up')) {
+        // Up scroll
+        header.classList.remove('scrolled-up');
+        header.classList.add('scrolled');
+    }
+    
+    lastScroll = currentScroll;
 });
 
 // Tab Functionality
@@ -149,6 +168,14 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             }
         }
+    });
+});
+
+// Scroll down arrow click
+document.querySelector('.scroll-down').addEventListener('click', () => {
+    window.scrollTo({
+        top: document.querySelector('#coworking').offsetTop - 80,
+        behavior: 'smooth'
     });
 });
 
@@ -449,4 +476,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize hero slider
     heroSlider();
+    
+    // Reset scroll position when modals open
+    const modals = [bookingModal, reviewModal, confirmationModal];
+    
+    modals.forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                const formContainer = modal.querySelector('.landscape-form');
+                if (formContainer) {
+                    formContainer.scrollTop = 0;
+                }
+            }
+        });
+    });
 });

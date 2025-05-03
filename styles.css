@@ -11,44 +11,78 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Liberation Sans', 'Purisa', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
     background-color: #f9f9f9;
     color: var(--text);
     line-height: 1.6;
-    padding-top: 80px;
+    padding-top: 0;
+    font-family: 'Liberation Sans', 'Purisa', 'Inter', sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2.25rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+p {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    font-weight: 400;
 }
 
 /* Header */
 .main-header {
     position: fixed;
-    top: 0.5cm;
-    left: 0.5cm;
-    right: 0.5cm;
-    width: calc(100% - 2cm);
-    background: rgba(255, 255, 255, 0.1);
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: transparent;
     backdrop-filter: blur(10px);
     z-index: 1000;
     transition: all 0.3s ease;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 35px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     margin: 0 auto;
-    max-width: 1400px;
+    max-width: 100%;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
 }
 
 .main-header.scrolled {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.main-header.scrolled-up {
+    transform: translateY(-100%);
 }
 
 .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 5%;
+    padding: 1.5rem 5%;
     max-width: 5400px;
     margin: 0 auto;
 }
@@ -58,8 +92,9 @@ body {
     align-items: center;
     font-size: 1.5rem;
     font-weight: 700;
-    color: white;
+    color: black;
     text-decoration: none;
+    letter-spacing: -0.03em;
 }
 
 .main-header.scrolled .logo {
@@ -77,16 +112,18 @@ body {
 }
 
 .main-nav li {
-    margin-left: 2rem;
+    margin-left: 2.5rem;
 }
 
 .main-nav a {
-    color: white;
+    color: black;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s;
     position: relative;
     padding-bottom: 5px;
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
 }
 
 .main-header.scrolled .main-nav a {
@@ -113,7 +150,7 @@ body {
     background: none;
     border: none;
     font-size: 1.5rem;
-    color: white;
+    color: black;
     cursor: pointer;
 }
 
@@ -125,8 +162,8 @@ body {
 .hero-section {
     height: 100vh;
     min-height: 700px;
-    margin-top: -80px;
-    padding-top: 80px;
+    margin-top: 0;
+    padding-top: 0;
     position: relative;
     overflow: hidden;
 }
@@ -188,21 +225,51 @@ body {
     font-size: 3.5rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
-    line-height: 1.2;
+    line-height: 1.1;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    letter-spacing: -0.03em;
 }
 
 .hero-subtitle {
     font-size: 1.5rem;
     margin-bottom: 2.5rem;
-    font-weight: 300;
+    font-weight: 400;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    line-height: 1.5;
 }
 
 .btn-group {
     display: flex;
     justify-content: center;
     gap: 1rem;
+}
+
+/* Scroll Down Arrow */
+.scroll-down {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    cursor: pointer;
+}
+
+.scroll-down i {
+    font-size: 2rem;
+    color: white;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
 }
 
 /* Slider Navigation */
@@ -235,35 +302,15 @@ body {
     right: 30px;
 }
 
-.arrow-line {
-    display: block;
-    width: 15px;
-    height: 2px;
-    background: white;
-    position: absolute;
-    transition: all 0.3s ease;
-}
-
-.slider-prev .arrow-line:first-child {
-    transform: rotate(45deg) translateX(4px);
-}
-
-.slider-prev .arrow-line:last-child {
-    transform: rotate(-45deg) translateX(4px);
-}
-
-.slider-next .arrow-line:first-child {
-    transform: rotate(-45deg) translateX(4px);
-}
-
-.slider-next .arrow-line:last-child {
-    transform: rotate(45deg) translateX(4px);
+.slider-arrow i {
+    color: white;
+    font-size: 1.5rem;
 }
 
 /* Dots Navigation */
 .slider-dots {
     position: absolute;
-    bottom: 30px;
+    bottom: 80px;
     left: 0;
     right: 0;
     display: flex;
@@ -300,6 +347,8 @@ body {
     cursor: pointer;
     text-align: center;
     border: none;
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
 }
 
 .btn:hover {
@@ -321,8 +370,13 @@ body {
 
 /* Features Section */
 .section {
-    padding: 6rem 5%;
+    padding: 50px 5%;
     position: relative;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.section:last-child {
+    border-bottom: none;
 }
 
 .section-title {
@@ -331,6 +385,7 @@ body {
     margin-bottom: 3rem;
     color: var(--primary);
     position: relative;
+    letter-spacing: -0.03em;
 }
 
 .section-title:after {
@@ -389,11 +444,14 @@ body {
     font-size: 1.5rem;
     margin-bottom: 1rem;
     color: var(--primary);
+    letter-spacing: -0.02em;
 }
 
 .feature-text {
     color: var(--secondary);
     margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
 }
 
 /* Tabs Section */
@@ -418,6 +476,7 @@ body {
     cursor: pointer;
     position: relative;
     transition: color 0.3s;
+    letter-spacing: -0.01em;
 }
 
 .tab-btn:after {
@@ -483,6 +542,8 @@ body {
     font-style: italic;
     margin-bottom: 1.5rem;
     position: relative;
+    font-size: 1.1rem;
+    line-height: 1.6;
 }
 
 .testimonial-text:before,
@@ -525,12 +586,26 @@ body {
 
 .author-name {
     font-weight: 600;
+    letter-spacing: -0.01em;
 }
 
 /* Contact Form */
 .contact-section {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+}
+
+.contact-image {
+    height: 100%;
+    min-height: 400px;
+    background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
 }
 
 .contact-form {
@@ -551,15 +626,18 @@ body {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
+    letter-spacing: -0.01em;
 }
 
 .form-control {
     width: 100%;
     padding: 1rem;
-    border: 1px solid #ddd;
+    border: 1px solid black;
     border-radius: 5px;
     font-size: 1rem;
     transition: border-color 0.3s;
+    font-family: 'Liberation Sans', 'Purisa', 'Inter', sans-serif;
+    background: transparent;
 }
 
 .form-control:focus {
@@ -593,10 +671,13 @@ textarea.form-control {
     color: white;
     margin-bottom: 1rem;
     display: inline-block;
+    letter-spacing: -0.03em;
 }
 
 .footer-about {
     margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
 }
 
 .footer-social {
@@ -619,6 +700,7 @@ textarea.form-control {
     font-weight: 600;
     margin-bottom: 1.5rem;
     color: white;
+    letter-spacing: -0.01em;
 }
 
 .footer-links {
@@ -633,6 +715,7 @@ textarea.form-control {
     color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     transition: color 0.3s;
+    font-size: 1.1rem;
 }
 
 .footer-links a:hover {
@@ -673,6 +756,7 @@ textarea.form-control {
     transition: all 0.3s;
     border-radius: 50px;
     outline: none;
+    letter-spacing: -0.01em;
 }
 
 .package-tab-btn.active {
@@ -729,6 +813,7 @@ textarea.form-control {
     font-size: 1.5rem;
     margin-bottom: 1rem;
     color: var(--primary);
+    letter-spacing: -0.02em;
 }
 
 .pricing-price {
@@ -736,6 +821,7 @@ textarea.form-control {
     font-weight: 700;
     margin-bottom: 1.5rem;
     color: var(--accent);
+    letter-spacing: -0.03em;
 }
 
 .pricing-price span {
@@ -752,6 +838,7 @@ textarea.form-control {
     margin-bottom: 0.8rem;
     position: relative;
     padding-left: 1.5rem;
+    font-size: 1.1rem;
 }
 
 .pricing-features li:before {
@@ -828,6 +915,8 @@ textarea.form-control {
     margin-bottom: 1.5rem;
     text-align: center;
     color: var(--primary);
+    font-size: 2rem;
+    letter-spacing: -0.02em;
 }
 
 #bookingForm .form-group {
@@ -838,6 +927,7 @@ textarea.form-control {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
+    letter-spacing: -0.01em;
 }
 
 #bookingForm input,
@@ -847,6 +937,7 @@ textarea.form-control {
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1rem;
+    font-family: 'Liberation Sans', 'Purisa', 'Inter', sans-serif;
 }
 
 #bookingForm textarea {
@@ -869,9 +960,11 @@ textarea.form-control {
 
 .landscape-image {
     flex: 1;
-    position: relative;
+    position: sticky;
+    top: 0;
     min-height: 300px;
     background-color: var(--primary);
+    z-index: 1;
 }
 
 .landscape-image img {
@@ -893,10 +986,12 @@ textarea.form-control {
 .image-overlay h3 {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
 }
 
 .image-overlay p {
     opacity: 0.9;
+    font-size: 1.1rem;
 }
 
 .landscape-form {
@@ -904,6 +999,12 @@ textarea.form-control {
     padding: 2rem;
     overflow-y: auto;
     max-height: 70vh;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+}
+
+.landscape-form > * {
+    scroll-snap-align: start;
 }
 
 .form-row {
@@ -953,6 +1054,7 @@ textarea.form-control {
 .detail-label {
     font-weight: 600;
     color: var(--primary);
+    letter-spacing: -0.01em;
 }
 
 .detail-value {
@@ -1040,11 +1142,14 @@ textarea.form-control {
     .contact-form {
         grid-template-columns: 1fr;
     }
-    .main-header {
-        top: 1cm;
-        left: 1cm;
-        right: 1cm;
-        width: calc(100% - 2cm);
+    
+    .contact-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-image {
+        min-height: 300px;
+        order: -1;
     }
 }
 
@@ -1066,6 +1171,7 @@ textarea.form-control {
         min-height: 150px;
         max-height: 150px;
         flex: 0 0 auto;
+        position: relative;
     }
     
     .landscape-form {
@@ -1119,6 +1225,10 @@ textarea.form-control {
         width: 10px;
         height: 10px;
     }
+    
+    .scroll-down i {
+        font-size: 1.5rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1146,8 +1256,8 @@ textarea.form-control {
     
     /* Touch-friendly form elements */
     input, textarea, select {
-        font-size: 16px !important; /* Verhindert automatisches Zoomen in iOS */
-        min-height: 44px !important; /* Mindestgröße für Touch-Ziele */
+        font-size: 16px !important;
+        min-height: 44px !important;
     }
     
     button, .btn {

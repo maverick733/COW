@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BM-Coworking - Arbeiten & Kultur erleben in Karaman</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -72,14 +75,36 @@
                 </div>
             </div>
             
+            <!-- Slide 4 -->
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+                <div class="hero-content">
+                    <h1 class="hero-title">Moderne Arbeitsplätze</h1>
+                    <p class="hero-subtitle">Helle, inspirierende Arbeitsumgebung mit ergonomischen Möbeln und schnellem WiFi.</p>
+                    <div class="btn-group">
+                        <a href="#coworking" class="btn">Coworking</a>
+                        <a href="#pakete" class="btn btn-outline">Pakete</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 5 -->
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+                <div class="hero-content">
+                    <h1 class="hero-title">Vibrante Community</h1>
+                    <p class="hero-subtitle">Netzwerken Sie mit lokalen und internationalen Professionals.</p>
+                    <div class="btn-group">
+                        <a href="#aktivitaeten" class="btn">Events</a>
+                        <a href="#kontakt" class="btn btn-outline">Mitmachen</a>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Navigation Arrows -->
             <button class="slider-arrow slider-prev">
-                <span class="arrow-line"></span>
-                <span class="arrow-line"></span>
+                <i class="fas fa-chevron-left"></i>
             </button>
             <button class="slider-arrow slider-next">
-                <span class="arrow-line"></span>
-                <span class="arrow-line"></span>
+                <i class="fas fa-chevron-right"></i>
             </button>
             
             <!-- Dots Navigation -->
@@ -87,6 +112,13 @@
                 <span class="dot active"></span>
                 <span class="dot"></span>
                 <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            
+            <!-- Scroll Down Arrow -->
+            <div class="scroll-down">
+                <i class="fas fa-chevron-down bounce"></i>
             </div>
         </div>
     </section>
@@ -698,7 +730,7 @@
             </div>
             
             <div class="testimonial-card">
-                <p class="testimonial-text">Die Übernachtung im traditionellen Dorf war ein unvergessliches Erlebnis. Die Gastfreundschaft und die authentische Atmosphäre haben mich tief beeindruckt.</p>
+                <p class="testimonial-text">Die Übernachtung im traditionellen Dorf war ein unvergessliches Erlebnis. Die Gastfreundschaft und die authentische Atmosphäre haben mich tief beeindrucket.</p>
                 <div class="testimonial-author">
                     <div class="author-img">
                         <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Elena P.">
@@ -715,6 +747,7 @@
     <!-- Kontakt Section -->
     <section class="section contact-section" id="kontakt">
         <h2 class="section-title">Kontaktieren Sie uns</h2>
+        <div class="contact-image"></div>
         <form class="contact-form">
             <div class="form-group">
                 <label for="name" class="form-label">Name</label>
