@@ -11,7 +11,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Liberation Sans', 'Purisa', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Purisa', 'Liberation Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
@@ -19,7 +19,7 @@ body {
     color: var(--text);
     line-height: 1.6;
     padding-top: 0;
-    font-family: 'Liberation Sans', 'Purisa', 'Inter', sans-serif;
+    font-family: 'Purisa', 'Liberation Sans', 'Inter', sans-serif;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -61,17 +61,30 @@ p {
     backdrop-filter: blur(10px);
     z-index: 1000;
     transition: all 0.3s ease;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     margin: 0 auto;
     max-width: 100%;
     transform: translateY(0);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.main-header.transparent {
+    background: transparent;
+    backdrop-filter: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.main-header.transparent .logo,
+.main-header.transparent .main-nav a,
+.main-header.transparent .mobile-menu-btn {
+    color: white;
 }
 
 .main-header.scrolled {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .main-header.scrolled-up {
@@ -92,9 +105,10 @@ p {
     align-items: center;
     font-size: 1.5rem;
     font-weight: 700;
-    color: black;
+    color: white;
     text-decoration: none;
     letter-spacing: -0.03em;
+    transition: color 0.3s;
 }
 
 .main-header.scrolled .logo {
@@ -116,7 +130,7 @@ p {
 }
 
 .main-nav a {
-    color: black;
+    color: white;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s;
@@ -150,8 +164,9 @@ p {
     background: none;
     border: none;
     font-size: 1.5rem;
-    color: black;
+    color: white;
     cursor: pointer;
+    transition: color 0.3s;
 }
 
 .main-header.scrolled .mobile-menu-btn {
@@ -636,7 +651,7 @@ p {
     border-radius: 5px;
     font-size: 1rem;
     transition: border-color 0.3s;
-    font-family: 'Liberation Sans', 'Purisa', 'Inter', sans-serif;
+    font-family: 'Purisa', 'Liberation Sans', 'Inter', sans-serif;
     background: transparent;
 }
 
@@ -937,7 +952,7 @@ textarea.form-control {
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1rem;
-    font-family: 'Liberation Sans', 'Purisa', 'Inter', sans-serif;
+    font-family: 'Purisa', 'Liberation Sans', 'Inter', sans-serif;
 }
 
 #bookingForm textarea {

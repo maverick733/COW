@@ -111,6 +111,13 @@ let lastScroll = 0;
 window.addEventListener('scroll', () => {
     const currentScroll = window.scrollY;
     
+    // Remove transparent class when scrolled
+    if (currentScroll > 50) {
+        header.classList.remove('transparent');
+    } else {
+        header.classList.add('transparent');
+    }
+    
     if (currentScroll <= 0) {
         header.classList.remove('scrolled-up');
         header.classList.remove('scrolled');
