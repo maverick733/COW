@@ -11,15 +11,17 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Purisa', 'Liberation Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 body {
     background-color: #f9f9f9;
     color: var(--text);
     line-height: 1.6;
     padding-top: 0;
-    font-family: 'Purisa', 'Liberation Sans', 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -61,7 +63,7 @@ p {
     backdrop-filter: blur(10px);
     z-index: 1000;
     transition: all 0.3s ease;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: none;
     margin: 0 auto;
     max-width: 100%;
     transform: translateY(0);
@@ -71,7 +73,6 @@ p {
 .main-header.transparent {
     background: transparent;
     backdrop-filter: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .main-header.transparent .logo,
@@ -84,7 +85,6 @@ p {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .main-header.scrolled-up {
@@ -171,6 +171,39 @@ p {
 
 .main-header.scrolled .mobile-menu-btn {
     color: var(--primary);
+}
+
+/* Mobile Menu */
+@media (max-width: 992px) {
+    .main-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        padding: 2rem;
+        padding-top: 80px;
+        transform: translateY(-150%);
+        transition: transform 0.3s;
+    }
+    
+    .main-nav.active {
+        transform: translateY(0);
+    }
+    
+    .main-nav ul {
+        flex-direction: column;
+    }
+    
+    .main-nav li {
+        margin: 0 0 1rem 0;
+    }
+    
+    .mobile-menu-btn {
+        display: block;
+    }
 }
 
 /* Hero Slider */
@@ -651,7 +684,7 @@ p {
     border-radius: 5px;
     font-size: 1rem;
     transition: border-color 0.3s;
-    font-family: 'Purisa', 'Liberation Sans', 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     background: transparent;
 }
 
@@ -746,7 +779,7 @@ textarea.form-control {
     font-size: 0.9rem;
 }
 
-/* Packages & Booking Section */
+/* Packages & Reservation Section */
 .packages-section {
     background-color: var(--light);
 }
@@ -865,12 +898,12 @@ textarea.form-control {
     color: var(--accent);
 }
 
-.package-book-btn {
+.package-reserve-btn {
     width: 100%;
 }
 
-/* Booking Modal - Landscape */
-.booking-modal, .confirmation-modal, .review-modal {
+/* Reservation Modal - Landscape */
+.reservation-modal, .confirmation-modal, .review-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -888,7 +921,7 @@ textarea.form-control {
     padding: 2rem 0;
 }
 
-.booking-modal.active, .confirmation-modal.active, .review-modal.active {
+.reservation-modal.active, .confirmation-modal.active, .review-modal.active {
     opacity: 1;
     visibility: visible;
 }
@@ -908,7 +941,7 @@ textarea.form-control {
     flex-direction: column;
 }
 
-.booking-modal.active .modal-content,
+.reservation-modal.active .modal-content,
 .confirmation-modal.active .modal-content,
 .review-modal.active .modal-content {
     transform: translateY(0);
@@ -934,28 +967,28 @@ textarea.form-control {
     letter-spacing: -0.02em;
 }
 
-#bookingForm .form-group {
+#reservationForm .form-group {
     margin-bottom: 1.5rem;
 }
 
-#bookingForm label {
+#reservationForm label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
     letter-spacing: -0.01em;
 }
 
-#bookingForm input,
-#bookingForm textarea {
+#reservationForm input,
+#reservationForm textarea {
     width: 100%;
     padding: 0.8rem;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1rem;
-    font-family: 'Purisa', 'Liberation Sans', 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
-#bookingForm textarea {
+#reservationForm textarea {
     min-height: 100px;
 }
 
@@ -1128,12 +1161,14 @@ textarea.form-control {
     
     .main-nav {
         position: fixed;
-        top: 80px;
+        top: 0;
         left: 0;
         width: 100%;
-        background: white;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
         padding: 2rem;
+        padding-top: 80px;
         transform: translateY(-150%);
         transition: transform 0.3s;
     }

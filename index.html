@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -24,13 +24,13 @@
             
             <nav class="main-nav" id="mainNav">
                 <ul>
-                    <li><a href="#home">Startseite / Home</a></li>
+                    <li><a href="#home">Startseite</a></li>
                     <li><a href="#coworking">Coworking</a></li>
-                    <li><a href="#kultur">Kultur / Culture</a></li>
-                    <li><a href="#aktivitaeten">Aktivitäten / Activities</a></li>
-                    <li><a href="#uebernachtung">Übernachtung / Accommodation</a></li>
-                    <li><a href="#pakete">Pakete / Packages</a></li>
-                    <li><a href="#kontakt">Kontakt / Contact</a></li>
+                    <li><a href="#kultur">Kultur</a></li>
+                    <li><a href="#aktivitaeten">Aktivitäten</a></li>
+                    <li><a href="#uebernachtung">Übernachtung</a></li>
+                    <li><a href="#pakete">Pakete</a></li>
+                    <li><a href="#kontakt">Kontakt</a></li>
                 </ul>
             </nav>
         </div>
@@ -388,7 +388,7 @@
         </div>
     </section>
 
-    <!-- Packages & Booking Section -->
+    <!-- Packages & Reservation Section -->
     <section class="section packages-section" id="pakete">
         <h2 class="section-title">Unsere Pakete</h2>
         
@@ -409,7 +409,7 @@
                         <li>Kaffee & Tee</li>
                         <li>Gemeinschaftsbereiche</li>
                     </ul>
-                    <button class="btn package-book-btn" data-package="Tagespass">Jetzt buchen</button>
+                    <button class="btn package-reserve-btn" data-package="Tagespass">Jetzt reservieren</button>
                 </div>
                 
                 <div class="pricing-card featured">
@@ -422,7 +422,7 @@
                         <li>Kaffee, Tee & Snacks</li>
                         <li>Community-Events</li>
                     </ul>
-                    <button class="btn package-book-btn" data-package="Wochenpass">Jetzt buchen</button>
+                    <button class="btn package-reserve-btn" data-package="Wochenpass">Jetzt reservieren</button>
                 </div>
                 
                 <div class="pricing-card" data-package-id="daily">
@@ -435,7 +435,7 @@
                         <li>Exklusive Events</li>
                         <li>10% Rabatt auf Touren</li>
                     </ul>
-                    <button class="btn package-book-btn" data-package="Monatspass">Jetzt buchen</button>
+                    <button class="btn package-reserve-btn" data-package="Monatspass">Jetzt reservieren</button>
                 </div>
             </div>
         </div>
@@ -451,7 +451,7 @@
                         <li>Eintritt zu Höhlenkirchen</li>
                         <li>Mittagessen inklusive</li>
                     </ul>
-                    <button class="btn package-book-btn" data-package="Kappadokien Tour">Jetzt buchen</button>
+                    <button class="btn package-reserve-btn" data-package="Kappadokien Tour">Jetzt reservieren</button>
                 </div>
                 
                 <div class="pricing-card featured">
@@ -464,7 +464,7 @@
                         <li>Führung durch Hierapolis</li>
                         <li>Thermalbad-Eintritt</li>
                     </ul>
-                    <button class="btn package-book-btn" data-package="Pamukkale Erlebnis">Jetzt buchen</button>
+                    <button class="btn package-reserve-btn" data-package="Pamukkale Erlebnis">Jetzt reservieren</button>
                 </div>
                 
                 <div class="pricing-card" data-package-id="daily">
@@ -476,7 +476,7 @@
                         <li>Traditionelles Abendessen</li>
                         <li>Fachkundiger Guide</li>
                     </ul>
-                    <button class="btn package-book-btn" data-package="Konya & Derwische">Jetzt buchen</button>
+                    <button class="btn package-reserve-btn" data-package="Konya & Derwische">Jetzt reservieren</button>
                 </div>
             </div>
         </div>
@@ -492,7 +492,7 @@
                         <li>Meetingraum (2h/Tag)</li>
                         <li>Willkommenspaket</li>
                     </ul>
-                    <button class="btn package-book-btn" data-package="Work & Explore">Jetzt buchen</button>
+                    <button class="btn package-reserve-btn" data-package="Work & Explore">Jetzt reservieren</button>
                 </div>
                 
                 <div class="pricing-card featured">
@@ -506,7 +506,7 @@
                         <li>Persönlicher Guide</li>
                         <li>24/7 Zugang</li>
                     </ul>
-                    <button class="btn package-book-btn" data-package="Digital Nomad Paket">Jetzt buchen</button>
+                    <button class="btn package-reserve-btn" data-package="Digital Nomad Paket">Jetzt reservieren</button>
                 </div>
                 
                 <div class="pricing-card" data-package-id="daily">
@@ -519,69 +519,69 @@
                         <li>Flughafentransfer</li>
                         <li>Persönlicher Assistent</li>
                     </ul>
-                    <button class="btn package-book-btn" data-package="Premium Experience">Jetzt buchen</button>
+                    <button class="btn package-reserve-btn" data-package="Premium Experience">Jetzt reservieren</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Booking Modal - Landscape -->
-    <div class="booking-modal landscape-modal" id="bookingModal">
+    <!-- Reservation Modal - Landscape -->
+    <div class="reservation-modal landscape-modal" id="reservationModal">
         <div class="modal-content landscape-content">
             <button class="modal-close-btn" id="modalCloseBtn">&times;</button>
             <div class="landscape-container">
                 <div class="landscape-image">
                     <img src="./image/booking-bg.jpg" alt="BM-Coworking Space">
                     <div class="image-overlay">
-                        <h3>Ihre Buchung bei BM-Coworking</h3>
+                        <h3>Ihre Reservierung bei BM-Coworking</h3>
                         <p>Arbeiten & Kultur erleben in Karaman</p>
                     </div>
                 </div>
                 <div class="landscape-form">
-                    <h2 class="modal-title">Buchung abschließen</h2>
-                    <form id="bookingForm">
+                    <h2 class="modal-title">Reservierung abschließen</h2>
+                    <form id="reservationForm">
                         <input type="hidden" id="packageName" name="packageName">
                         
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="bookingName">Vollständiger Name</label>
-                                <input type="text" id="bookingName" name="bookingName" required>
+                                <label for="reservationName">Vollständiger Name</label>
+                                <input type="text" id="reservationName" name="reservationName" required>
                             </div>
                             <div class="form-group">
-                                <label for="bookingEmail">Email</label>
-                                <input type="email" id="bookingEmail" name="bookingEmail" required>
+                                <label for="reservationEmail">Email</label>
+                                <input type="email" id="reservationEmail" name="reservationEmail" required>
                             </div>
                         </div>
                         
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="bookingPhone">Telefon</label>
-                                <input type="tel" id="bookingPhone" name="bookingPhone">
+                                <label for="reservationPhone">Telefon</label>
+                                <input type="tel" id="reservationPhone" name="reservationPhone">
                             </div>
                             <div class="form-group">
-                                <label for="bookingGuests">Personen</label>
-                                <input type="number" id="bookingGuests" name="bookingGuests" min="1" value="1" required>
+                                <label for="reservationGuests">Personen</label>
+                                <input type="number" id="reservationGuests" name="reservationGuests" min="1" value="1" required>
                             </div>
                         </div>
                         
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="bookingCheckin">Check-in</label>
-                                <input type="date" id="bookingCheckin" name="bookingCheckin" required>
+                                <label for="reservationCheckin">Check-in</label>
+                                <input type="date" id="reservationCheckin" name="reservationCheckin" required>
                             </div>
                             <div class="form-group">
-                                <label for="bookingCheckout">Check-out</label>
-                                <input type="date" id="bookingCheckout" name="bookingCheckout" required>
+                                <label for="reservationCheckout">Check-out</label>
+                                <input type="date" id="reservationCheckout" name="reservationCheckout" required>
                             </div>
                         </div>
                         
                         <div class="form-group full-width">
-                            <label for="bookingNotes">Besondere Anforderungen</label>
-                            <textarea id="bookingNotes" name="bookingNotes" rows="3"></textarea>
+                            <label for="reservationNotes">Besondere Anforderungen</label>
+                            <textarea id="reservationNotes" name="reservationNotes" rows="3"></textarea>
                         </div>
                         
                         <div class="form-group full-width">
-                            <button type="button" class="btn" id="reviewBookingBtn">Buchung überprüfen</button>
+                            <button type="button" class="btn" id="reviewReservationBtn">Reservierung überprüfen</button>
                         </div>
                     </form>
                 </div>
@@ -595,14 +595,14 @@
             <button class="modal-close-btn" id="reviewCloseBtn">&times;</button>
             <div class="landscape-container">
                 <div class="landscape-image">
-                    <img src="./image/review-bg.jpg" alt="Buchungsüberprüfung">
+                    <img src="./image/review-bg.jpg" alt="Reservierungsüberprüfung">
                     <div class="image-overlay">
-                        <h3>Überprüfen Sie Ihre Buchung</h3>
+                        <h3>Überprüfen Sie Ihre Reservierung</h3>
                         <p>Bitte bestätigen Sie Ihre Angaben</p>
                     </div>
                 </div>
                 <div class="landscape-form">
-                    <h2 class="modal-title">Buchungsdetails</h2>
+                    <h2 class="modal-title">Reservierungsdetails</h2>
                     <div class="review-details">
                         <div class="detail-row">
                             <span class="detail-label">Paket:</span>
@@ -638,8 +638,8 @@
                         </div>
                     </div>
                     <div class="review-actions">
-                        <button class="btn btn-outline" id="editBookingBtn">Änderungen vornehmen</button>
-                        <button class="btn" id="confirmBookingBtn">Buchung bestätigen</button>
+                        <button class="btn btn-outline" id="editReservationBtn">Änderungen vornehmen</button>
+                        <button class="btn" id="confirmReservationBtn">Reservierung bestätigen</button>
                     </div>
                 </div>
             </div>
@@ -654,7 +654,7 @@
                 <div class="landscape-image">
                     <img src="./image/confirmation-bg.jpg" alt="BM-Coworking Bestätigung">
                     <div class="image-overlay">
-                        <h3>Vielen Dank für Ihre Buchung!</h3>
+                        <h3>Vielen Dank für Ihre Reservierung!</h3>
                         <p>Wir freuen uns auf Ihren Besuch</p>
                     </div>
                 </div>
@@ -662,7 +662,7 @@
                     <div class="confirmation-icon">
                         <i class="fas fa-check-circle"></i>
                     </div>
-                    <h2 class="modal-title">Buchung erfolgreich!</h2>
+                    <h2 class="modal-title">Reservierung erfolgreich!</h2>
                     
                     <div class="confirmation-details">
                         <div class="detail-row">

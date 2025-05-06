@@ -197,24 +197,24 @@ if (contactForm) {
     });
 }
 
-// Packages & Booking Functionality
+// Packages & Reservation Functionality
 const packageTabBtns = document.querySelectorAll('.package-tab-btn');
 const packageContents = document.querySelectorAll('.package-content');
-const packageBookBtns = document.querySelectorAll('.package-book-btn');
-const bookingModal = document.getElementById('bookingModal');
+const packageReserveBtns = document.querySelectorAll('.package-reserve-btn');
+const reservationModal = document.getElementById('reservationModal');
 const reviewModal = document.getElementById('reviewModal');
 const confirmationModal = document.getElementById('confirmationModal');
 const modalCloseBtn = document.getElementById('modalCloseBtn');
 const reviewCloseBtn = document.getElementById('reviewCloseBtn');
 const confirmationCloseBtn = document.getElementById('confirmationCloseBtn');
 const confirmationOkBtn = document.getElementById('confirmationOkBtn');
-const bookingForm = document.getElementById('bookingForm');
+const reservationForm = document.getElementById('reservationForm');
 const packageNameInput = document.getElementById('packageName');
 const confirmedPackageSpan = document.getElementById('confirmedPackage');
 const reservationNumberSpan = document.getElementById('reservationNumber');
-const reviewBookingBtn = document.getElementById('reviewBookingBtn');
-const editBookingBtn = document.getElementById('editBookingBtn');
-const confirmBookingBtn = document.getElementById('confirmBookingBtn');
+const reviewReservationBtn = document.getElementById('reviewReservationBtn');
+const editReservationBtn = document.getElementById('editReservationBtn');
+const confirmReservationBtn = document.getElementById('confirmReservationBtn');
 
 // Package tabs
 packageTabBtns.forEach(btn => {
@@ -231,12 +231,12 @@ packageTabBtns.forEach(btn => {
     });
 });
 
-// Open booking modal with body scroll lock
-packageBookBtns.forEach(btn => {
+// Open reservation modal with body scroll lock
+packageReserveBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         const packageName = btn.getAttribute('data-package');
         packageNameInput.value = packageName;
-        bookingModal.classList.add('active');
+        reservationModal.classList.add('active');
         document.body.classList.add('modal-open');
         document.body.style.overflow = 'hidden';
         
@@ -252,7 +252,7 @@ packageBookBtns.forEach(btn => {
 
 // Close modals and restore body scroll
 function closeModals() {
-    bookingModal.classList.remove('active');
+    reservationModal.classList.remove('active');
     reviewModal.classList.remove('active');
     confirmationModal.classList.remove('active');
     document.body.classList.remove('modal-open');
@@ -265,7 +265,7 @@ confirmationCloseBtn.addEventListener('click', closeModals);
 confirmationOkBtn.addEventListener('click', closeModals);
 
 // Close modal when clicking on backdrop
-[bookingModal, reviewModal, confirmationModal].forEach(modal => {
+[reservationModal, reviewModal, confirmationModal].forEach(modal => {
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             closeModals();
@@ -273,10 +273,10 @@ confirmationOkBtn.addEventListener('click', closeModals);
     });
 });
 
-// Review booking button
-reviewBookingBtn.addEventListener('click', function() {
+// Review reservation button
+reviewReservationBtn.addEventListener('click', function() {
     // Validate form
-    const form = document.getElementById('bookingForm');
+    const form = document.getElementById('reservationForm');
     const requiredFields = form.querySelectorAll('[required]');
     let isValid = true;
     
@@ -295,27 +295,27 @@ reviewBookingBtn.addEventListener('click', function() {
     }
     
     // Validate dates
-    const checkin = new Date(form.bookingCheckin.value);
-    const checkout = new Date(form.bookingCheckout.value);
+    const checkin = new Date(form.reservationCheckin.value);
+    const checkout = new Date(form.reservationCheckout.value);
     
     if (checkin >= checkout) {
         alert('Check-out Datum muss nach dem Check-in Datum liegen.');
-        form.bookingCheckout.style.borderColor = 'red';
+        form.reservationCheckout.style.borderColor = 'red';
         return;
     }
     
     // Fill review modal with data
     document.getElementById('reviewPackage').textContent = packageNameInput.value;
-    document.getElementById('reviewName').textContent = form.bookingName.value;
-    document.getElementById('reviewEmail').textContent = form.bookingEmail.value;
-    document.getElementById('reviewPhone').textContent = form.bookingPhone.value || '-';
-    document.getElementById('reviewGuests').textContent = form.bookingGuests.value;
-    document.getElementById('reviewCheckin').textContent = new Date(form.bookingCheckin.value).toLocaleDateString('de-DE');
-    document.getElementById('reviewCheckout').textContent = new Date(form.bookingCheckout.value).toLocaleDateString('de-DE');
-    document.getElementById('reviewNotes').textContent = form.bookingNotes.value || '-';
+    document.getElementById('reviewName').textContent = form.reservationName.value;
+    document.getElementById('reviewEmail').textContent = form.reservationEmail.value;
+    document.getElementById('reviewPhone').textContent = form.reservationPhone.value || '-';
+    document.getElementById('reviewGuests').textContent = form.reservationGuests.value;
+    document.getElementById('reviewCheckin').textContent = new Date(form.reservationCheckin.value).toLocaleDateString('de-DE');
+    document.getElementById('reviewCheckout').textContent = new Date(form.reservationCheckout.value).toLocaleDateString('de-DE');
+    document.getElementById('reviewNotes').textContent = form.reservationNotes.value || '-';
     
     // Show review modal
-    bookingModal.classList.remove('active');
+    reservationModal.classList.remove('active');
     reviewModal.classList.add('active');
     
     // Scroll to top of review modal on mobile
@@ -327,10 +327,10 @@ reviewBookingBtn.addEventListener('click', function() {
     }
 });
 
-// Edit booking button
-editBookingBtn.addEventListener('click', function() {
+// Edit reservation button
+editReservationBtn.addEventListener('click', function() {
     reviewModal.classList.remove('active');
-    bookingModal.classList.add('active');
+    reservationModal.classList.add('active');
     
     // Scroll to top of form on mobile
     if (window.innerWidth <= 768) {
@@ -341,13 +341,13 @@ editBookingBtn.addEventListener('click', function() {
     }
 });
 
-// Confirm booking button
-confirmBookingBtn.addEventListener('click', function() {
-    const form = document.getElementById('bookingForm');
+// Confirm reservation button
+confirmReservationBtn.addEventListener('click', function() {
+    const form = document.getElementById('reservationForm');
     
     // Calculate number of nights
-    const checkin = new Date(form.bookingCheckin.value);
-    const checkout = new Date(form.bookingCheckout.value);
+    const checkin = new Date(form.reservationCheckin.value);
+    const checkout = new Date(form.reservationCheckout.value);
     const timeDiff = checkout - checkin;
     const nights = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
     
@@ -363,14 +363,14 @@ confirmBookingBtn.addEventListener('click', function() {
     // Get form data
     const formData = {
         package: packageNameInput.value,
-        name: form.bookingName.value,
-        email: form.bookingEmail.value,
-        phone: form.bookingPhone.value,
-        checkin: formatDate(form.bookingCheckin.value),
-        checkout: formatDate(form.bookingCheckout.value),
+        name: form.reservationName.value,
+        email: form.reservationEmail.value,
+        phone: form.reservationPhone.value,
+        checkin: formatDate(form.reservationCheckin.value),
+        checkout: formatDate(form.reservationCheckout.value),
         nights: nights,
-        guests: form.bookingGuests.value,
-        notes: form.bookingNotes.value,
+        guests: form.reservationGuests.value,
+        notes: form.reservationNotes.value,
         reservationNumber: reservationNumber
     };
     
@@ -383,7 +383,7 @@ confirmBookingBtn.addEventListener('click', function() {
     document.getElementById('confirmedGuests').textContent = formData.guests;
     
     // Send confirmation email (simulated)
-    sendBookingEmail(formData);
+    sendReservationEmail(formData);
     
     // Hide review modal and show confirmation
     reviewModal.classList.remove('active');
@@ -401,10 +401,10 @@ confirmBookingBtn.addEventListener('click', function() {
     }
 });
 
-// Function to send booking email
-function sendBookingEmail(data) {
+// Function to send reservation email
+function sendReservationEmail(data) {
     const emailContent = `
-        Neue Buchung bei BM-Coworking:
+        Neue Reservierung bei BM-Coworking:
         
         Paket: ${data.package}
         Name: ${data.name}
@@ -485,7 +485,7 @@ document.addEventListener('DOMContentLoaded', function() {
     heroSlider();
     
     // Reset scroll position when modals open
-    const modals = [bookingModal, reviewModal, confirmationModal];
+    const modals = [reservationModal, reviewModal, confirmationModal];
     
     modals.forEach(modal => {
         modal.addEventListener('click', function(e) {
