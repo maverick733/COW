@@ -7,48 +7,39 @@ const heroSlider = () => {
     let currentIndex = 0;
     let autoSlideInterval;
     
-    // Update arrows to use Font Awesome icons
     prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
     nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
     
-    // Function to show slide
     const showSlide = (index) => {
-        // Hide all slides
         slides.forEach(slide => slide.classList.remove('active'));
         dots.forEach(dot => dot.classList.remove('active'));
         
-        // Show current slide
         slides[index].classList.add('active');
         dots[index].classList.add('active');
         currentIndex = index;
     };
     
-    // Next slide
     const nextSlide = () => {
         const newIndex = (currentIndex + 1) % slides.length;
         showSlide(newIndex);
         resetAutoSlide();
     };
     
-    // Previous slide
     const prevSlide = () => {
         const newIndex = (currentIndex - 1 + slides.length) % slides.length;
         showSlide(newIndex);
         resetAutoSlide();
     };
     
-    // Auto slide
     const startAutoSlide = () => {
-        autoSlideInterval = setInterval(nextSlide, 4000); // Changed to 4 seconds
+        autoSlideInterval = setInterval(nextSlide, 4000);
     };
     
-    // Reset auto slide timer
     const resetAutoSlide = () => {
         clearInterval(autoSlideInterval);
         startAutoSlide();
     };
     
-    // Event listeners
     nextBtn.addEventListener('click', nextSlide);
     prevBtn.addEventListener('click', prevSlide);
     
@@ -59,7 +50,6 @@ const heroSlider = () => {
         });
     });
     
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowRight') {
             nextSlide();
@@ -68,7 +58,6 @@ const heroSlider = () => {
         }
     });
     
-    // Touch events for mobile
     let touchStartX = 0;
     let touchEndX = 0;
     
@@ -89,19 +78,31 @@ const heroSlider = () => {
         }
     };
     
-    // Initialize
     showSlide(0);
     startAutoSlide();
 };
 
 // Mobile Menu
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileCloseBtn = document.getElementById('mobileCloseBtn');
 const mainNav = document.getElementById('mainNav');
 
-mobileMenuBtn.addEventListener('click', () => {
+function toggleMobileMenu() {
     mainNav.classList.toggle('active');
-    mobileMenuBtn.innerHTML = mainNav.classList.contains('active') ? 
-        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    document.body.classList.toggle('no-scroll');
+}
+
+function closeMobileMenu() {
+    mainNav.classList.remove('active');
+    document.body.classList.remove('no-scroll');
+}
+
+mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+mobileCloseBtn.addEventListener('click', closeMobileMenu);
+
+// Close mobile menu when clicking on nav links
+document.querySelectorAll('.main-nav a').forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
 });
 
 // Header Scroll Effect
@@ -109,9 +110,12 @@ const header = document.querySelector('.main-header');
 let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
+    if (mainNav.classList.contains('active')) {
+        closeMobileMenu();
+    }
+    
     const currentScroll = window.scrollY;
     
-    // Remove transparent class when scrolled
     if (currentScroll > 50) {
         header.classList.remove('transparent');
     } else {
@@ -125,11 +129,9 @@ window.addEventListener('scroll', () => {
     }
     
     if (currentScroll > lastScroll && !header.classList.contains('scrolled-up')) {
-        // Down scroll
         header.classList.remove('scrolled');
         header.classList.add('scrolled-up');
     } else if (currentScroll < lastScroll && header.classList.contains('scrolled-up')) {
-        // Up scroll
         header.classList.remove('scrolled-up');
         header.classList.add('scrolled');
     }
@@ -196,6 +198,82 @@ if (contactForm) {
         this.reset();
     });
 }
+
+// Card Detail Modal
+const cardDetailModal = document.getElementById('cardDetailModal');
+const cardModalCloseBtn = document.getElementById('cardModalCloseBtn');
+const cardDetailContent = document.getElementById('cardDetailContent');
+const openCardBtns = document.querySelectorAll('.open-card-btn');
+
+function openCardDetail(cardId) {
+    // In a real implementation, you would fetch the card details from a database or API
+    // For this example, we'll create a simple detail view
+    
+    const card = document.querySelector(`[data-card-id="${cardId}"]`);
+    if (!card) return;
+    
+    const title = card.querySelector('.feature-title').textContent;
+    const text = card.querySelector('.feature-text').textContent;
+    const imgSrc = card.querySelector('.feature-img img').src;
+    
+    cardDetailContent.innerHTML = `
+        <div class="card-detail-img">
+            <img src="${imgSrc}" alt="${title}">
+        </div>
+        <div class="card-detail-text">
+            <h3>${title}</h3>
+            <p>${text}</p>
+            <p>Weitere Details zu diesem Angebot würden hier angezeigt werden.</p>
+            <button class="btn">Jetzt buchen</button>
+        </div>
+    `;
+    
+    cardDetailModal.classList.add('active');
+    document.body.classList.add('modal-open');
+}
+
+function closeCardDetail() {
+    cardDetailModal.classList.remove('active');
+    document.body.classList.remove('modal-open');
+}
+
+openCardBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+        const cardId = this.closest('.feature-card').getAttribute('data-card-id');
+        openCardDetail(cardId);
+    });
+});
+
+cardModalCloseBtn.addEventListener('click', closeCardDetail);
+
+cardDetailModal.addEventListener('click', (e) => {
+    if (e.target === cardDetailModal) {
+        closeCardDetail();
+    }
+});
+
+// Mobile Ad Popup
+const mobileAdModal = document.getElementById('mobileAdModal');
+const adCloseBtn = document.getElementById('adCloseBtn');
+const adActionBtn = document.getElementById('adActionBtn');
+
+function showMobileAd() {
+    if (window.innerWidth <= 768) {
+        setTimeout(() => {
+            mobileAdModal.classList.add('active');
+        }, 10000); // Show after 10 seconds
+    }
+}
+
+function closeMobileAd() {
+    mobileAdModal.classList.remove('active');
+}
+
+adCloseBtn.addEventListener('click', closeMobileAd);
+adActionBtn.addEventListener('click', () => {
+    closeMobileAd();
+    window.location.href = '#pakete';
+});
 
 // Packages & Reservation Functionality
 const packageTabBtns = document.querySelectorAll('.package-tab-btn');
@@ -497,4 +575,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    
+    // Show mobile ad after delay
+    showMobileAd();
 });
