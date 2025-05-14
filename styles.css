@@ -490,17 +490,18 @@ p {
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         padding-bottom: 20px;
-        scrollbar-width: none; /* Firefox */
+        scrollbar-width: none;
     }
     
     .features-grid::-webkit-scrollbar {
-        display: none; /* Chrome/Safari */
+        display: none;
     }
     
     .feature-card {
         flex: 0 0 85%;
         scroll-snap-align: start;
         margin-right: 15px;
+        min-width: 0;
     }
 }
 
@@ -1021,6 +1022,17 @@ textarea.form-control {
     gap: 1rem;
 }
 
+.card-detail-text h3 {
+    font-size: 1.8rem;
+    color: var(--primary);
+}
+
+.card-detail-text p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--secondary);
+}
+
 /* Mobile Ad Modal */
 .mobile-ad-modal {
     position: fixed;
@@ -1083,6 +1095,75 @@ textarea.form-control {
 
 .ad-content .btn {
     width: 100%;
+}
+
+/* Desktop Ad Banner */
+.desktop-ad-banner {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 800px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    z-index: 1001;
+    padding: 1.5rem;
+    display: none;
+    animation: slideUp 0.5s ease-out;
+}
+
+.desktop-ad-banner.active {
+    display: block;
+}
+
+.desktop-ad-banner .ad-content {
+    position: relative;
+    text-align: center;
+}
+
+.desktop-ad-banner .ad-close-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.desktop-ad-banner h3 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.desktop-ad-banner p {
+    margin-bottom: 1.5rem;
+    color: var(--secondary);
+    font-size: 1.1rem;
+}
+
+.desktop-ad-banner .btn {
+    margin-top: 1rem;
+    padding: 0.8rem 2rem;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateX(-50%) translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
 }
 
 /* Reservation Modal - Landscape */
@@ -1546,4 +1627,25 @@ body.modal-open {
     position: fixed;
     width: 100%;
     height: 100%;
+}
+
+/* Hide desktop ad on mobile and vice versa */
+@media (max-width: 768px) {
+    .desktop-ad-banner {
+        display: none !important;
+    }
+    
+    .mobile-ad-modal {
+        display: block;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-ad-modal {
+        display: none !important;
+    }
+    
+    .desktop-ad-banner {
+        display: block;
+    }
 }
