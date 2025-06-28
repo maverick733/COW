@@ -205,12 +205,7 @@ const cardModalCloseBtn = document.getElementById('cardModalCloseBtn');
 const cardDetailContent = document.getElementById('cardDetailContent');
 const openCardBtns = document.querySelectorAll('.open-card-btn');
 
-let scrollPosition = 0;
-
 function openCardDetail(cardId) {
-    // Save scroll position
-    scrollPosition = window.scrollY;
-    
     // In a real implementation, you would fetch the card details from a database or API
     // For this example, we'll create a simple detail view
     
@@ -240,9 +235,6 @@ function openCardDetail(cardId) {
 function closeCardDetail() {
     cardDetailModal.classList.remove('active');
     document.body.classList.remove('modal-open');
-    
-    // Restore scroll position
-    window.scrollTo(0, scrollPosition);
 }
 
 openCardBtns.forEach(btn => {
@@ -265,11 +257,6 @@ const mobileAdModal = document.getElementById('mobileAdModal');
 const adCloseBtn = document.getElementById('adCloseBtn');
 const adActionBtn = document.getElementById('adActionBtn');
 
-// Desktop Ad Banner
-const desktopAdBanner = document.getElementById('desktopAdBanner');
-const desktopAdCloseBtn = document.getElementById('desktopAdCloseBtn');
-const desktopAdActionBtn = document.getElementById('desktopAdActionBtn');
-
 function showMobileAd() {
     if (window.innerWidth <= 768) {
         setTimeout(() => {
@@ -278,31 +265,13 @@ function showMobileAd() {
     }
 }
 
-function showDesktopAd() {
-    if (window.innerWidth > 768) {
-        setTimeout(() => {
-            desktopAdBanner.classList.add('active');
-        }, 15000); // Show after 15 seconds
-    }
-}
-
 function closeMobileAd() {
     mobileAdModal.classList.remove('active');
-}
-
-function closeDesktopAd() {
-    desktopAdBanner.classList.remove('active');
 }
 
 adCloseBtn.addEventListener('click', closeMobileAd);
 adActionBtn.addEventListener('click', () => {
     closeMobileAd();
-    window.location.href = '#pakete';
-});
-
-desktopAdCloseBtn.addEventListener('click', closeDesktopAd);
-desktopAdActionBtn.addEventListener('click', () => {
-    closeDesktopAd();
     window.location.href = '#pakete';
 });
 
@@ -607,7 +576,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Show ads after delay
+    // Show mobile ad after delay
     showMobileAd();
-    showDesktopAd();
 });
