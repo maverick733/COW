@@ -490,11 +490,11 @@ p {
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         padding-bottom: 20px;
-        scrollbar-width: none; /* Firefox */
+        scrollbar-width: none;
     }
     
     .features-grid::-webkit-scrollbar {
-        display: none; /* Chrome/Safari */
+        display: none;
     }
     
     .feature-card {
@@ -1011,6 +1011,7 @@ textarea.form-control {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    transition: opacity 0.3s ease;
 }
 
 .card-detail-img {
@@ -1042,6 +1043,49 @@ textarea.form-control {
     font-size: 1.8rem;
     margin-bottom: 0.5rem;
     color: var(--primary);
+}
+
+/* Modal Navigation */
+.modal-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 1rem 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1rem;
+}
+
+.modal-nav-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+    visibility: hidden;
+}
+
+.modal-nav-btn:hover {
+    background: var(--primary);
+    transform: scale(1.05);
+}
+
+.modal-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.modal-counter {
+    font-size: 1rem;
+    color: var(--secondary);
+    font-weight: 500;
+    letter-spacing: -0.01em;
 }
 
 /* Modal - bessere Darstellung langer Texte */
@@ -1530,6 +1574,21 @@ textarea.form-control {
         -webkit-line-clamp: 2;
         max-height: 3.2em;
     }
+
+    /* Modal Navigation Mobile */
+    .modal-nav {
+        padding: 0 0 0.75rem 0;
+    }
+    
+    .modal-nav-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+    
+    .modal-counter {
+        font-size: 0.9rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1590,6 +1649,17 @@ textarea.form-control {
     
     .btn-outline {
         margin-left: 0;
+    }
+
+    /* Modal Navigation Mobile Small */
+    .modal-nav {
+        padding: 0 0 0.5rem 0;
+    }
+    
+    .modal-nav-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
     }
 }
 

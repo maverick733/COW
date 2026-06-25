@@ -544,6 +544,18 @@
     <div class="card-detail-modal" id="cardDetailModal">
         <div class="modal-content">
             <button class="modal-close-btn" id="cardModalCloseBtn">&times;</button>
+            
+            <!-- Navigation innerhalb des Modals -->
+            <div class="modal-nav">
+                <button class="modal-nav-btn modal-prev" id="modalPrevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <span class="modal-counter" id="modalCounter">1 / 12</span>
+                <button class="modal-nav-btn modal-next" id="modalNextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
             <div class="card-detail-content" id="cardDetailContent">
                 <!-- Content will be loaded dynamically -->
             </div>

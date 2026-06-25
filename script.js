@@ -199,34 +199,97 @@ if (contactForm) {
     });
 }
 
-// Card Detail Modal
+// Card Detail Modal - mit Navigation zwischen den kulturellen Highlights
 const cardDetailModal = document.getElementById('cardDetailModal');
 const cardModalCloseBtn = document.getElementById('cardModalCloseBtn');
 const cardDetailContent = document.getElementById('cardDetailContent');
 const openCardBtns = document.querySelectorAll('.open-card-btn');
+const modalPrevBtn = document.getElementById('modalPrevBtn');
+const modalNextBtn = document.getElementById('modalNextBtn');
+const modalCounter = document.getElementById('modalCounter');
 
-function openCardDetail(cardId) {
-    // In a real implementation, you would fetch the card details from a database or API
-    // For this example, we'll create a simple detail view
-    
-    const card = document.querySelector(`[data-card-id="${cardId}"]`);
+// Alle kulturellen Karten sammeln (nur die mit data-card-id und data-full-text)
+let cultureCards = [];
+let currentCardIndex = 0;
+
+function updateCultureCards() {
+    // Nur Karten aus der Kultur-Sektion sammeln
+    const kulturSection = document.getElementById('kultur');
+    cultureCards = Array.from(kulturSection.querySelectorAll('.feature-card[data-card-id][data-full-text]'));
+}
+
+function getCardData(card) {
+    const title = card.querySelector('.feature-title').textContent;
+    const imgSrc = card.querySelector('.feature-img img').src;
+    const fullText = card.getAttribute('data-full-text') || card.querySelector('.feature-text').textContent;
+    return { title, imgSrc, fullText };
+}
+
+function renderCardDetail(card) {
     if (!card) return;
     
-    const title = card.querySelector('.feature-title').textContent;
-    const text = card.querySelector('.feature-text').textContent;
-    const imgSrc = card.querySelector('.feature-img img').src;
+    const data = getCardData(card);
     
     cardDetailContent.innerHTML = `
         <div class="card-detail-img">
-            <img src="${imgSrc}" alt="${title}">
+            <img src="${data.imgSrc}" alt="${data.title}">
         </div>
         <div class="card-detail-text">
-            <h3>${title}</h3>
-            <p>${text}</p>
-            <p>Weitere Details zu diesem Angebot würden hier angezeigt werden.</p>
-            <button class="btn">Jetzt buchen</button>
+            <h3>${data.title}</h3>
+            <p style="white-space: pre-wrap; line-height: 1.8;">${data.fullText}</p>
+            <button class="btn" style="margin-top: 1rem;">Jetzt buchen</button>
         </div>
     `;
+    
+    // Counter aktualisieren
+    const total = cultureCards.length;
+    modalCounter.textContent = `${currentCardIndex + 1} / ${total}`;
+    
+    // Navigation Buttons anzeigen/ausblenden
+    modalPrevBtn.style.visibility = currentCardIndex > 0 ? 'visible' : 'hidden';
+    modalNextBtn.style.visibility = currentCardIndex < total - 1 ? 'visible' : 'hidden';
+}
+
+function openCardDetail(cardId) {
+    // Kulturelle Karten aktualisieren
+    updateCultureCards();
+    
+    // Karte finden
+    const card = document.querySelector(`.feature-card[data-card-id="${cardId}"]`);
+    if (!card) return;
+    
+    // Prüfen ob es eine Kultur-Karte ist
+    const isCultureCard = card.hasAttribute('data-full-text');
+    if (isCultureCard) {
+        currentCardIndex = cultureCards.indexOf(card);
+        if (currentCardIndex === -1) {
+            // Falls die Karte nicht in der Liste ist, neu laden
+            updateCultureCards();
+            currentCardIndex = cultureCards.indexOf(card);
+        }
+        renderCardDetail(card);
+    } else {
+        // Normale Karte (nicht Kultur)
+        const title = card.querySelector('.feature-title').textContent;
+        const imgSrc = card.querySelector('.feature-img img').src;
+        const text = card.querySelector('.feature-text').textContent;
+        
+        cardDetailContent.innerHTML = `
+            <div class="card-detail-img">
+                <img src="${imgSrc}" alt="${title}">
+            </div>
+            <div class="card-detail-text">
+                <h3>${title}</h3>
+                <p style="white-space: pre-wrap; line-height: 1.8;">${text}</p>
+                <button class="btn" style="margin-top: 1rem;">Jetzt buchen</button>
+            </div>
+        `;
+        
+        // Navigation für nicht-Kultur-Karten ausblenden
+        modalPrevBtn.style.visibility = 'hidden';
+        modalNextBtn.style.visibility = 'hidden';
+        modalCounter.textContent = '';
+    }
     
     cardDetailModal.classList.add('active');
     document.body.classList.add('modal-open');
@@ -237,10 +300,53 @@ function closeCardDetail() {
     document.body.classList.remove('modal-open');
 }
 
+// Navigation innerhalb des Modals
+function navigateModal(direction) {
+    const total = cultureCards.length;
+    let newIndex = currentCardIndex + direction;
+    
+    if (newIndex < 0) newIndex = 0;
+    if (newIndex >= total) newIndex = total - 1;
+    
+    if (newIndex !== currentCardIndex) {
+        currentCardIndex = newIndex;
+        const card = cultureCards[currentCardIndex];
+        if (card) {
+            renderCardDetail(card);
+            // Kleine Animation für flüssigen Übergang
+            cardDetailContent.style.opacity = '0';
+            setTimeout(() => {
+                cardDetailContent.style.opacity = '1';
+            }, 100);
+        }
+    }
+}
+
+modalPrevBtn.addEventListener('click', () => navigateModal(-1));
+modalNextBtn.addEventListener('click', () => navigateModal(1));
+
+// Tastatursteuerung für Modal-Navigation
+document.addEventListener('keydown', (e) => {
+    if (cardDetailModal.classList.contains('active')) {
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            navigateModal(-1);
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            navigateModal(1);
+        }
+    }
+});
+
+// Open card buttons
 openCardBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-        const cardId = this.closest('.feature-card').getAttribute('data-card-id');
-        openCardDetail(cardId);
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const card = this.closest('.feature-card');
+        if (card) {
+            const cardId = card.getAttribute('data-card-id');
+            openCardDetail(cardId);
+        }
     });
 });
 
@@ -252,6 +358,18 @@ cardDetailModal.addEventListener('click', (e) => {
     }
 });
 
+// Schließen mit Escape-Taste
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && cardDetailModal.classList.contains('active')) {
+        closeCardDetail();
+    }
+});
+
+// Initial: Kulturelle Karten sammeln
+document.addEventListener('DOMContentLoaded', () => {
+    updateCultureCards();
+});
+
 // Mobile Ad Popup
 const mobileAdModal = document.getElementById('mobileAdModal');
 const adCloseBtn = document.getElementById('adCloseBtn');
@@ -261,7 +379,7 @@ function showMobileAd() {
     if (window.innerWidth <= 768) {
         setTimeout(() => {
             mobileAdModal.classList.add('active');
-        }, 10000); // Show after 10 seconds
+        }, 10000);
     }
 }
 
@@ -288,8 +406,6 @@ const confirmationCloseBtn = document.getElementById('confirmationCloseBtn');
 const confirmationOkBtn = document.getElementById('confirmationOkBtn');
 const reservationForm = document.getElementById('reservationForm');
 const packageNameInput = document.getElementById('packageName');
-const confirmedPackageSpan = document.getElementById('confirmedPackage');
-const reservationNumberSpan = document.getElementById('reservationNumber');
 const reviewReservationBtn = document.getElementById('reviewReservationBtn');
 const editReservationBtn = document.getElementById('editReservationBtn');
 const confirmReservationBtn = document.getElementById('confirmReservationBtn');
@@ -299,17 +415,15 @@ packageTabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         const packageId = btn.getAttribute('data-package');
         
-        // Remove active class from all buttons and contents
         packageTabBtns.forEach(btn => btn.classList.remove('active'));
         packageContents.forEach(content => content.classList.remove('active'));
         
-        // Add active class to clicked button and corresponding content
         btn.classList.add('active');
         document.getElementById(`${packageId}-packages`).classList.add('active');
     });
 });
 
-// Open reservation modal with body scroll lock
+// Open reservation modal
 packageReserveBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         const packageName = btn.getAttribute('data-package');
@@ -318,7 +432,6 @@ packageReserveBtns.forEach(btn => {
         document.body.classList.add('modal-open');
         document.body.style.overflow = 'hidden';
         
-        // Scroll to top of form on mobile
         if (window.innerWidth <= 768) {
             const formContainer = document.querySelector('.landscape-form');
             if (formContainer) {
@@ -328,7 +441,7 @@ packageReserveBtns.forEach(btn => {
     });
 });
 
-// Close modals and restore body scroll
+// Close modals
 function closeModals() {
     reservationModal.classList.remove('active');
     reviewModal.classList.remove('active');
@@ -342,7 +455,6 @@ reviewCloseBtn.addEventListener('click', closeModals);
 confirmationCloseBtn.addEventListener('click', closeModals);
 confirmationOkBtn.addEventListener('click', closeModals);
 
-// Close modal when clicking on backdrop
 [reservationModal, reviewModal, confirmationModal].forEach(modal => {
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
@@ -353,7 +465,6 @@ confirmationOkBtn.addEventListener('click', closeModals);
 
 // Review reservation button
 reviewReservationBtn.addEventListener('click', function() {
-    // Validate form
     const form = document.getElementById('reservationForm');
     const requiredFields = form.querySelectorAll('[required]');
     let isValid = true;
@@ -372,7 +483,6 @@ reviewReservationBtn.addEventListener('click', function() {
         return;
     }
     
-    // Validate dates
     const checkin = new Date(form.reservationCheckin.value);
     const checkout = new Date(form.reservationCheckout.value);
     
@@ -382,7 +492,6 @@ reviewReservationBtn.addEventListener('click', function() {
         return;
     }
     
-    // Fill review modal with data
     document.getElementById('reviewPackage').textContent = packageNameInput.value;
     document.getElementById('reviewName').textContent = form.reservationName.value;
     document.getElementById('reviewEmail').textContent = form.reservationEmail.value;
@@ -392,11 +501,9 @@ reviewReservationBtn.addEventListener('click', function() {
     document.getElementById('reviewCheckout').textContent = new Date(form.reservationCheckout.value).toLocaleDateString('de-DE');
     document.getElementById('reviewNotes').textContent = form.reservationNotes.value || '-';
     
-    // Show review modal
     reservationModal.classList.remove('active');
     reviewModal.classList.add('active');
     
-    // Scroll to top of review modal on mobile
     if (window.innerWidth <= 768) {
         const reviewContainer = document.querySelector('.review-modal .landscape-form');
         if (reviewContainer) {
@@ -410,7 +517,6 @@ editReservationBtn.addEventListener('click', function() {
     reviewModal.classList.remove('active');
     reservationModal.classList.add('active');
     
-    // Scroll to top of form on mobile
     if (window.innerWidth <= 768) {
         const formContainer = document.querySelector('.landscape-form');
         if (formContainer) {
@@ -423,22 +529,18 @@ editReservationBtn.addEventListener('click', function() {
 confirmReservationBtn.addEventListener('click', function() {
     const form = document.getElementById('reservationForm');
     
-    // Calculate number of nights
     const checkin = new Date(form.reservationCheckin.value);
     const checkout = new Date(form.reservationCheckout.value);
     const timeDiff = checkout - checkin;
     const nights = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
     
-    // Generate reservation number
     const reservationNumber = 'BM-' + Math.floor(100000 + Math.random() * 900000);
     
-    // Format dates for display
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date(dateString).toLocaleDateString('de-DE', options);
     };
     
-    // Get form data
     const formData = {
         package: packageNameInput.value,
         name: form.reservationName.value,
@@ -452,7 +554,6 @@ confirmReservationBtn.addEventListener('click', function() {
         reservationNumber: reservationNumber
     };
     
-    // Update confirmation modal
     document.getElementById('confirmedPackage').textContent = formData.package;
     document.getElementById('reservationNumber').textContent = formData.reservationNumber;
     document.getElementById('confirmedCheckin').textContent = formData.checkin;
@@ -460,17 +561,13 @@ confirmReservationBtn.addEventListener('click', function() {
     document.getElementById('confirmedNights').textContent = formData.nights;
     document.getElementById('confirmedGuests').textContent = formData.guests;
     
-    // Send confirmation email (simulated)
     sendReservationEmail(formData);
     
-    // Hide review modal and show confirmation
     reviewModal.classList.remove('active');
     confirmationModal.classList.add('active');
     
-    // Reset form
     form.reset();
     
-    // Scroll to top of confirmation modal on mobile
     if (window.innerWidth <= 768) {
         const confirmationContainer = document.querySelector('.confirmation-modal .landscape-form');
         if (confirmationContainer) {
@@ -479,7 +576,6 @@ confirmReservationBtn.addEventListener('click', function() {
     }
 });
 
-// Function to send reservation email
 function sendReservationEmail(data) {
     const emailContent = `
         Neue Reservierung bei BM-Coworking:
@@ -497,7 +593,6 @@ function sendReservationEmail(data) {
     `;
     
     console.log('Email würde gesendet werden mit:', emailContent);
-    // In der Praxis würden Sie hier EmailJS oder eine Backend-API aufrufen
 }
 
 // Initialize background images
@@ -519,7 +614,6 @@ async function fetchAndUpdatePrices() {
         if (!response.ok) throw new Error('Network response was not ok');
         const prices = await response.json();
         
-        // Update prices in the DOM
         prices.forEach(item => {
             const elements = document.querySelectorAll(`[data-package-id="${item.id}"] .pricing-price`);
             elements.forEach(el => {
@@ -531,22 +625,17 @@ async function fetchAndUpdatePrices() {
     }
 }
 
-// Initial fetch
 fetchAndUpdatePrices();
-
-// Update prices periodically
-setInterval(fetchAndUpdatePrices, 60000); // Update every minute
+setInterval(fetchAndUpdatePrices, 60000);
 
 // Better mobile input handling
 document.addEventListener('DOMContentLoaded', function() {
-    // Prevent zoom on input focus in mobile
     document.addEventListener('touchstart', function(e) {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
             document.body.style.zoom = '100%';
         }
     }, { passive: true });
     
-    // Improve date input on mobile
     if ('ontouchstart' in window) {
         const dateInputs = document.querySelectorAll('input[type="date"]');
         dateInputs.forEach(input => {
@@ -559,12 +648,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Initialize hero slider
     heroSlider();
+    updateCultureCards();
     
-    // Reset scroll position when modals open
     const modals = [reservationModal, reviewModal, confirmationModal];
-    
     modals.forEach(modal => {
         modal.addEventListener('click', function(e) {
             if (e.target === modal) {
@@ -576,6 +663,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Show mobile ad after delay
     showMobileAd();
 });
