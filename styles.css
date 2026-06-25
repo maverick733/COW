@@ -551,6 +551,17 @@ p {
     line-height: 1.6;
 }
 
+/* Preview Text - gekürzte Anzeige */
+.feature-text.preview-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.6;
+    max-height: 4.8em;
+    transition: max-height 0.3s ease;
+}
+
 /* Tabs Section */
 .tabs-section {
     background-color: var(--light);
@@ -1021,6 +1032,33 @@ textarea.form-control {
     gap: 1rem;
 }
 
+.card-detail-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    white-space: pre-wrap;
+}
+
+.card-detail-text h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary);
+}
+
+/* Modal - bessere Darstellung langer Texte */
+.card-detail-modal .modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.card-detail-modal .modal-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.card-detail-modal .modal-content::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 3px;
+}
+
 /* Mobile Ad Modal */
 .mobile-ad-modal {
     position: fixed;
@@ -1471,6 +1509,26 @@ textarea.form-control {
     
     .scroll-down i {
         font-size: 1.5rem;
+    }
+
+    .card-detail-modal .modal-content {
+        width: 95%;
+        padding: 1.5rem;
+        max-height: 85vh;
+    }
+    
+    .card-detail-text p {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+    
+    .card-detail-text h3 {
+        font-size: 1.4rem;
+    }
+    
+    .feature-text.preview-text {
+        -webkit-line-clamp: 2;
+        max-height: 3.2em;
     }
 }
 
