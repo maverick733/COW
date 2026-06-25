@@ -147,11 +147,9 @@ tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         const tabId = btn.getAttribute('data-tab');
         
-        // Remove active class from all buttons and contents
         tabBtns.forEach(btn => btn.classList.remove('active'));
         tabContents.forEach(content => content.classList.remove('active'));
         
-        // Add active class to clicked button and corresponding content
         btn.classList.add('active');
         document.getElementById(tabId).classList.add('active');
     });
@@ -171,7 +169,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 behavior: 'smooth'
             });
             
-            // Close mobile menu if open
             if (mainNav.classList.contains('active')) {
                 mainNav.classList.remove('active');
                 mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
@@ -199,7 +196,7 @@ if (contactForm) {
     });
 }
 
-// Card Detail Modal - mit Navigation zwischen den kulturellen Highlights
+// Card Detail Modal - Universelle Navigation für ALLE Kategorien
 const cardDetailModal = document.getElementById('cardDetailModal');
 const cardModalCloseBtn = document.getElementById('cardModalCloseBtn');
 const cardDetailContent = document.getElementById('cardDetailContent');
@@ -208,20 +205,34 @@ const modalPrevBtn = document.getElementById('modalPrevBtn');
 const modalNextBtn = document.getElementById('modalNextBtn');
 const modalCounter = document.getElementById('modalCounter');
 
-// Alle kulturellen Karten sammeln (nur die mit data-card-id und data-full-text)
-let cultureCards = [];
+// Alle Karten nach Kategorie gruppieren
+let allCardsByCategory = {};
+let currentCategoryCards = [];
 let currentCardIndex = 0;
+let currentCategory = '';
 
-function updateCultureCards() {
-    // Nur Karten aus der Kultur-Sektion sammeln
-    const kulturSection = document.getElementById('kultur');
-    cultureCards = Array.from(kulturSection.querySelectorAll('.feature-card[data-card-id][data-full-text]'));
+function collectAllCards() {
+    allCardsByCategory = {};
+    
+    // Alle Features-Grids mit data-category durchgehen
+    document.querySelectorAll('.features-grid[data-category]').forEach(grid => {
+        const category = grid.getAttribute('data-category');
+        const cards = Array.from(grid.querySelectorAll('.feature-card'));
+        allCardsByCategory[category] = cards;
+    });
 }
 
 function getCardData(card) {
     const title = card.querySelector('.feature-title').textContent;
     const imgSrc = card.querySelector('.feature-img img').src;
-    const fullText = card.getAttribute('data-full-text') || card.querySelector('.feature-text').textContent;
+    
+    // Prüfen ob es eine Kultur-Karte mit vollständigem Text ist
+    let fullText = card.getAttribute('data-full-text');
+    if (!fullText) {
+        const previewText = card.querySelector('.feature-text');
+        fullText = previewText ? previewText.textContent : 'Weitere Details zu diesem Angebot würden hier angezeigt werden.';
+    }
+    
     return { title, imgSrc, fullText };
 }
 
@@ -242,7 +253,7 @@ function renderCardDetail(card) {
     `;
     
     // Counter aktualisieren
-    const total = cultureCards.length;
+    const total = currentCategoryCards.length;
     modalCounter.textContent = `${currentCardIndex + 1} / ${total}`;
     
     // Navigation Buttons anzeigen/ausblenden
@@ -251,45 +262,34 @@ function renderCardDetail(card) {
 }
 
 function openCardDetail(cardId) {
-    // Kulturelle Karten aktualisieren
-    updateCultureCards();
+    // Karten sammeln
+    collectAllCards();
     
     // Karte finden
-    const card = document.querySelector(`.feature-card[data-card-id="${cardId}"]`);
-    if (!card) return;
+    let targetCard = null;
+    let targetCategory = '';
     
-    // Prüfen ob es eine Kultur-Karte ist
-    const isCultureCard = card.hasAttribute('data-full-text');
-    if (isCultureCard) {
-        currentCardIndex = cultureCards.indexOf(card);
-        if (currentCardIndex === -1) {
-            // Falls die Karte nicht in der Liste ist, neu laden
-            updateCultureCards();
-            currentCardIndex = cultureCards.indexOf(card);
+    for (const [category, cards] of Object.entries(allCardsByCategory)) {
+        const found = cards.find(card => card.getAttribute('data-card-id') === cardId);
+        if (found) {
+            targetCard = found;
+            targetCategory = category;
+            break;
         }
-        renderCardDetail(card);
-    } else {
-        // Normale Karte (nicht Kultur)
-        const title = card.querySelector('.feature-title').textContent;
-        const imgSrc = card.querySelector('.feature-img img').src;
-        const text = card.querySelector('.feature-text').textContent;
-        
-        cardDetailContent.innerHTML = `
-            <div class="card-detail-img">
-                <img src="${imgSrc}" alt="${title}">
-            </div>
-            <div class="card-detail-text">
-                <h3>${title}</h3>
-                <p style="white-space: pre-wrap; line-height: 1.8;">${text}</p>
-                <button class="btn" style="margin-top: 1rem;">Jetzt buchen</button>
-            </div>
-        `;
-        
-        // Navigation für nicht-Kultur-Karten ausblenden
-        modalPrevBtn.style.visibility = 'hidden';
-        modalNextBtn.style.visibility = 'hidden';
-        modalCounter.textContent = '';
     }
+    
+    if (!targetCard) return;
+    
+    // Kategorie und Karten setzen
+    currentCategory = targetCategory;
+    currentCategoryCards = allCardsByCategory[currentCategory] || [];
+    currentCardIndex = currentCategoryCards.indexOf(targetCard);
+    
+    if (currentCardIndex === -1) {
+        currentCardIndex = 0;
+    }
+    
+    renderCardDetail(targetCard);
     
     cardDetailModal.classList.add('active');
     document.body.classList.add('modal-open');
@@ -302,7 +302,7 @@ function closeCardDetail() {
 
 // Navigation innerhalb des Modals
 function navigateModal(direction) {
-    const total = cultureCards.length;
+    const total = currentCategoryCards.length;
     let newIndex = currentCardIndex + direction;
     
     if (newIndex < 0) newIndex = 0;
@@ -310,14 +310,13 @@ function navigateModal(direction) {
     
     if (newIndex !== currentCardIndex) {
         currentCardIndex = newIndex;
-        const card = cultureCards[currentCardIndex];
+        const card = currentCategoryCards[currentCardIndex];
         if (card) {
             renderCardDetail(card);
-            // Kleine Animation für flüssigen Übergang
             cardDetailContent.style.opacity = '0';
             setTimeout(() => {
                 cardDetailContent.style.opacity = '1';
-            }, 100);
+            }, 150);
         }
     }
 }
@@ -365,9 +364,9 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Initial: Kulturelle Karten sammeln
+// Initial: Karten sammeln
 document.addEventListener('DOMContentLoaded', () => {
-    updateCultureCards();
+    collectAllCards();
 });
 
 // Mobile Ad Popup
@@ -649,7 +648,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     heroSlider();
-    updateCultureCards();
+    collectAllCards();
     
     const modals = [reservationModal, reviewModal, confirmationModal];
     modals.forEach(modal => {
