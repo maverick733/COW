@@ -214,11 +214,15 @@ let currentCategory = '';
 function collectAllCards() {
     allCardsByCategory = {};
     
-    // Alle Features-Grids mit data-category durchgehen
+    // ALLE Features-Grids mit data-category durchgehen - auch in inaktiven Tabs!
     document.querySelectorAll('.features-grid[data-category]').forEach(grid => {
         const category = grid.getAttribute('data-category');
+        // Alle Karten im Grid sammeln, auch wenn das Grid in einem inaktiven Tab ist
         const cards = Array.from(grid.querySelectorAll('.feature-card'));
-        allCardsByCategory[category] = cards;
+        if (!allCardsByCategory[category]) {
+            allCardsByCategory[category] = [];
+        }
+        allCardsByCategory[category] = allCardsByCategory[category].concat(cards);
     });
 }
 
@@ -262,7 +266,7 @@ function renderCardDetail(card) {
 }
 
 function openCardDetail(cardId) {
-    // Karten sammeln
+    // Karten sammeln (immer aktuell)
     collectAllCards();
     
     // Karte finden
@@ -278,7 +282,10 @@ function openCardDetail(cardId) {
         }
     }
     
-    if (!targetCard) return;
+    if (!targetCard) {
+        console.warn('Karte nicht gefunden:', cardId);
+        return;
+    }
     
     // Kategorie und Karten setzen
     currentCategory = targetCategory;
