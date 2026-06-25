@@ -218,7 +218,7 @@ function collectAllCards() {
     document.querySelectorAll('.features-grid[data-category]').forEach(grid => {
         const category = grid.getAttribute('data-category');
         // Alle Karten im Grid sammeln, auch wenn das Grid in einem inaktiven Tab ist
-        const cards = Array.from(grid.querySelectorAll('.feature-card'));
+        const cards = Array.from(grid.querySelectorAll('.feature-card:not([data-event="true"])'));
         if (!allCardsByCategory[category]) {
             allCardsByCategory[category] = [];
         }
@@ -368,6 +368,44 @@ cardDetailModal.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && cardDetailModal.classList.contains('active')) {
         closeCardDetail();
+    }
+});
+
+// =====================================================
+// EVENT DETAIL MODAL (Rückzugsort vor der Hochzeit)
+// =====================================================
+const eventDetailModal = document.getElementById('eventDetailModal');
+const eventModalCloseBtn = document.getElementById('eventModalCloseBtn');
+const openEventBtns = document.querySelectorAll('.open-event-btn');
+
+function openEventDetail() {
+    eventDetailModal.classList.add('active');
+    document.body.classList.add('modal-open');
+}
+
+function closeEventDetail() {
+    eventDetailModal.classList.remove('active');
+    document.body.classList.remove('modal-open');
+}
+
+openEventBtns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        openEventDetail();
+    });
+});
+
+eventModalCloseBtn.addEventListener('click', closeEventDetail);
+
+eventDetailModal.addEventListener('click', (e) => {
+    if (e.target === eventDetailModal) {
+        closeEventDetail();
+    }
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && eventDetailModal.classList.contains('active')) {
+        closeEventDetail();
     }
 });
 
